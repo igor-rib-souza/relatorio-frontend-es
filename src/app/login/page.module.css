@@ -1,9 +1,10 @@
 .pageContainer {
     height: 100vh;
-    background-color: #121C54;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #292E45 url(./../../../public/login-background.png) no-repeat center;
+    background-size: cover;
 }
 
 .loginContainer {
@@ -47,7 +48,6 @@
 .iconContainer {
     color: #121C54;
     margin: 8px;
-    border: 10px solid red;
 }
 
 .inputContainer {
