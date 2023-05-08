@@ -1,7 +1,11 @@
 import Header from "../../components/header/header"
+import Menu from "../../components/menu/menu"
 
 export default function Relatorios(){
     return(
-        <Header></Header>
+        <div>
+            <Header/>
+            <Menu/>
+        </div>
     )
 }
