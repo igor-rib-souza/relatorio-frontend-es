@@ -7,13 +7,13 @@ export default function ButtonMenu(props: { text: string | number | boolean | Re
             <div>
                 <button className={styles.button}>
                     {
-                        props.text == "Relatórios" ? <Newspaper/>
+                        props.text == "Relatórios" ? <Newspaper className={styles.ButtonMenu}/>
                         :
-                        props.text == "Membros" ? <Users/>
+                        props.text == "Membros" ? <Users className={styles.ButtonMenu}/>
                         :
-                        props.text == "Tags" ? <Tag/>
+                        props.text == "Tags" ? <Tag className={styles.ButtonMenu}/>
                         :
-                        props.text == "Sair" ? <LogOut/>
+                        props.text == "Sair" ? <LogOut className={styles.ButtonMenu}/>
                         :
                         <></>
                     }
