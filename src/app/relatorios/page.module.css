@@ -1,3 +1,7 @@
 .container{
     background-color: #A2A8C9;
 }
+
+.container2{
+    display: flex;
+}
