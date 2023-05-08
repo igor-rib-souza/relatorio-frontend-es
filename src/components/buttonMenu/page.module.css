@@ -1,0 +1,16 @@
+.text{
+    font-size: large;
+    color: #292E45;
+}
+
+.button{
+    background: #D3D3D3;
+    padding-top: 7%;
+    padding-bottom: 7%;
+    width: 30vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 0.5px solid #292E45;
+}
