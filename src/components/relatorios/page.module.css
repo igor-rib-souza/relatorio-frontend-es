@@ -1,3 +1,22 @@
 .container{
     height: 81vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.headerRelatorio{
+    background-color: #292E45;
+    height: 5vh;
+    width: 75vw;
+    border-radius: 18px 18px 0 0;
+}
+
+.containerRelatorio{
+    background-color: #EDF5FF;
+    height: 70vh;
+    width: 75vw;
+    border-radius: 0 0 0 18px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
 }
