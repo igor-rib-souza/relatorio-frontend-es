@@ -19,9 +19,8 @@
 
 .searchContainer{
     display: flex;
-    
     height: 60%;
-    width: 60%;
+    width: 65%;
     border: 1px solid #D3D3D3;
     border-radius: 64px;
     margin-left: 7%;
@@ -56,8 +55,8 @@
 }
 
 .profilePic{
-    width: 3%;
-    height: 60%;
+    width: 6vh;
+    height: 6vh;
     border-radius: 100%;
     margin-left: 10%;
 }
