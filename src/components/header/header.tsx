@@ -14,7 +14,7 @@ export default function Header(){
                     <form className={styles.formContainer}>
                         <input className={styles.inputContainer} placeholder="Buscar Tags..."></input>
                     </form>
-                    <Search className={styles.iconContainer} size={25}/>
+                    <Search className={styles.iconContainer}/>
                 </div>
                 <Image src={Ausente} alt={""} className={styles.profilePic}/>
             </div>

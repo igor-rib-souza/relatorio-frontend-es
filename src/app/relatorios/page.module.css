@@ -1,7 +1,14 @@
 .container{
     background-color: #A2A8C9;
+    height: 100%;
+    width: 100%;
 }
 
 .container2{
     display: flex;
+}
+
+.container3{
+    display: flex;
+    flex-direction: column;
 }

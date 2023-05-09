@@ -1,5 +1,5 @@
 .text{
-    font-size: large;
+    font-size: 1.5vw;
     color: #292E45;
 }
 
@@ -7,7 +7,7 @@
     background: #D3D3D3;
     padding-top: 7%;
     padding-bottom: 7%;
-    width: 30vh;
+    width: 15vw;
     display: flex;
     flex-direction: row;
     align-items: center;
