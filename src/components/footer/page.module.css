@@ -38,16 +38,24 @@
 
 .iconContainer{
     display: flex;
-    /*border: 2px solid red;*/
     width: 10%;
     height: 50%;
     justify-content: space-between;
 }
 
 .icon{
-    background-color: #292E45;
     color: #FFFFFF;
     border-radius: 100%;
-    background-size: 100% 100%;
-    size: 50% 50%;
+    size: 100% 100%;
+}
+
+.iconBackground{
+    background-color: #292E45;
+    border-radius: 100%;
+    width: 33%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3%;
+    padding-left: 5%;
 }

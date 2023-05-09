@@ -10,8 +10,12 @@ export default function Footer(){
                     </form>
                 </div>
                 <div className={styles.iconContainer}>
+                    <div className={styles.iconBackground}>
                         <Calendar className={styles.icon}/>
+                    </div>
+                    <div className={styles.iconBackground}>
                         <Send className={styles.icon}/>
+                    </div>
                     </div>
         </div>
     )
