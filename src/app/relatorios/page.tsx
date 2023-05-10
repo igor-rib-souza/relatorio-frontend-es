@@ -3,6 +3,7 @@ import Menu from "../../components/menu/menu";
 import Footer from "../../components/footer/footer";
 import styles from "./page.module.css";
 import Relatorio from "../../components/relatorios/relatorios";
+import api from "../../services/api"
 
 export default function Relatorios(){
 
