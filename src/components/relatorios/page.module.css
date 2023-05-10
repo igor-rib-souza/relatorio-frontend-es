@@ -94,7 +94,6 @@
     display: flex;
     width: 65vw;
     height: 10vh;
-    border: 2px solid red;
     contain: strict;
 }
 
