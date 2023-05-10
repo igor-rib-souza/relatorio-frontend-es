@@ -32,7 +32,7 @@ export default function Relatorios(relatorios: any) {
                   <p className={styles.timeText}>{relatorio["endTime"]}</p>
                 </div>
                 {data.map((tags: any, index: number) => (
-                  <p key={index}>{relatorio["tags"][index]}</p>
+                  <p className={styles.text} key={index}>{relatorio["tags"][index]}</p>
                 ))}
               </div>
               <div className={styles.containerTextRelatorio}>
