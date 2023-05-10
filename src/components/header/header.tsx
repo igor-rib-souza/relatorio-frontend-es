@@ -22,7 +22,7 @@ export default function Header(){
     return (
         <div className={styles.container}>
             <div className={styles.headerContainer}>
-                <Image src={windowSize.width>309? Logo : LogoMinimalista} alt={""} className={windowSize.width > 309? styles.Logo : styles.LogoMinimalista}/>
+                <Image src={windowSize.width>500? Logo : LogoMinimalista} alt={""} className={windowSize.width > 500? styles.Logo : styles.LogoMinimalista}/>
                 <div className={styles.searchContainer}>
                     <form className={styles.formContainer}>
                         <input className={styles.inputContainer} placeholder="Buscar Tags..."></input>
