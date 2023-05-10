@@ -28,7 +28,7 @@
 
 .containerHeaderData{
     border: 1px solid #B7BBD1;
-    width: 11vw;
+    width: 9vw;
     height: 2.7vh;
     border-radius: 24px;
     margin-left: 1%;
@@ -39,7 +39,7 @@
 
 .date{
     color:white;
-    font-size: 1.5vh;
+    font-size: 0.9vw;
 }
 
 .arrow{
