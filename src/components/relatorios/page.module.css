@@ -21,6 +21,9 @@
     width: 75vw;
     border-radius: 0 0 0 18px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    
 }
 
 .containerHeaderData{
@@ -41,4 +44,66 @@
 
 .arrow{
     color: white;
+}
+
+.relatorio{
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    }
+
+.dateRelatorio{
+    width: 6vw;
+    display: flex;
+    align-items: center;
+    height: 8vh;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #BDD4ED;
+    border-radius: 32px;
+
+    
+}
+
+.textDate{
+    font-weight: bolder;
+    font-size: 1.7vh;
+}
+
+/*Esse aqui engloba os dois abaixo*/
+.containerRelatorIndividual{
+    width: 68vw;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.containerTimeTags{
+    display: flex;
+    align-items: center;
+    height: 2.7vh;
+    width: 7.7vw;
+    background-color: #BDD4ED;
+    border-radius: 32px;
+    justify-content: space-evenly;    
+}
+
+.containerTextRelatorio{
+    display: flex;
+    width: 65vw;
+}
+
+.timeText{
+    font-size: 1.7vh;
+}
+
+.containerGlobalTimeTags{
+    display: flex;
+    align-items: center;
+}
+
+.text{
+    font-size: 1.7vh;
 }
