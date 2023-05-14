@@ -23,12 +23,11 @@
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    
 }
 
 .containerHeaderData{
     border: 1px solid #B7BBD1;
-    width: 11vw;
+    width: 9vw;
     height: 2.7vh;
     border-radius: 24px;
     margin-left: 1%;
@@ -39,7 +38,7 @@
 
 .date{
     color:white;
-    font-size: 1.5vh;
+    font-size: 0.9vw;
 }
 
 .arrow{
@@ -51,7 +50,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+    contain: strict;
     }
 
 .dateRelatorio{
@@ -63,8 +62,7 @@
     justify-content: center;
     background-color: #BDD4ED;
     border-radius: 32px;
-
-    
+    contain: strict;
 }
 
 .textDate{
@@ -77,7 +75,7 @@
     width: 68vw;
     display: flex;
     flex-direction: column;
-    
+    contain: content;
 }
 
 .containerTimeTags{
@@ -87,12 +85,15 @@
     width: 7.7vw;
     background-color: #BDD4ED;
     border-radius: 32px;
-    justify-content: space-evenly;    
+    justify-content: space-evenly;
+    contain: strict;    
 }
 
 .containerTextRelatorio{
     display: flex;
     width: 65vw;
+    height: 10vh;
+    contain: strict;
 }
 
 .timeText{
@@ -102,6 +103,7 @@
 .containerGlobalTimeTags{
     display: flex;
     align-items: center;
+    contain: content;
 }
 
 .text{

@@ -31,7 +31,7 @@ export default function ButtonMenu(props: { text: string | number | boolean | Re
                         <></>
                     }
                     {
-                        windowSize.width > 309 ?
+                        windowSize.width > 500 ?
                         <p className={styles.text}>{props.text}</p>
                         :
                         <></>

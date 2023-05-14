@@ -8,16 +8,16 @@ export default function Relatorios(relatorios: any) {
     <div className={styles.container}>
       <div className={styles.headerRelatorio}>
         <div className={styles.containerHeaderData}>
-          <p className={styles.date}>{data[0]["date"]}</p>
-          <ArrowRight className={styles.arrow} size={15} />
-          <p className={styles.date}>{data[data.length - 1]["date"]}</p>
+          <p className={styles.date}>{data[0]["date"].slice(0,5)}</p>
+          <ArrowRight className={styles.arrow} size={13} />
+          <p className={styles.date}>{data[data.length - 1]["date"].slice(0,5)}</p>
         </div>
       </div>
       <div className={styles.containerRelatorio}>
         {data.map((relatorio: any, index: number) => (
           <div key={index} className={styles.relatorio}>
             <div className={styles.dateRelatorio}>
-              <p className={styles.textDate}>{relatorio.date}</p>
+              <p className={styles.textDate}>{relatorio.date.slice(0,5)}</p>
             </div>
             <div className={styles.containerRelatorIndividual}>
               <div className={styles.containerGlobalTimeTags}>
@@ -32,7 +32,7 @@ export default function Relatorios(relatorios: any) {
                   <p className={styles.timeText}>{relatorio["endTime"]}</p>
                 </div>
                 {data.map((tags: any, index: number) => (
-                  <p key={index}>{relatorio["tags"][index]}</p>
+                  <p className={styles.text} key={index}>{relatorio["tags"][index]}</p>
                 ))}
               </div>
               <div className={styles.containerTextRelatorio}>
