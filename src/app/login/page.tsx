@@ -34,9 +34,7 @@ export default function Login(props: LoginProps) {
     
         await api.post('login',{"email":email, "password":password})
             .then((response) => {
-                //console.log(response.data) 
-                setUser(response.data);
-                Cookies.set("user", JSON.stringify(user));
+                Cookies.set(response.data, JSON.stringify(user));
                 router.push("/relatorios");
             })
             .catch((error) => {
