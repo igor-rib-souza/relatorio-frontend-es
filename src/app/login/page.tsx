@@ -3,24 +3,45 @@ import styles from './page.module.css';
 import { Mail, Lock } from 'lucide-react';
 import { useState } from 'react';
 import api from '../../services/api';
+import Cookies from  'js-cookie';
+import { useRouter } from "next/navigation";
+
+
 
 interface LoginProps {
     onSubmit: (email: string, password: string) => void;
 }
 
 export default function Login(props: LoginProps) {
+    const router = useRouter();
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [user, setUser] = useState({
+        "user": {
+            "_id": "",
+            "name": "",
+            "email": "",
+            "type": "",
+            "createdAt": "",
+            "updatedAt": "",
+            "__v": null
+        },
+        "token": ""
+    });
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async  (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
     
-        try {
-          const response = await api.post('/login', { email, password });
-          props.onSubmit(email, password);
-        } catch (error) {
-          console.error('Erro ao fazer login:', error);
-        }
+        await api.post('login',{"email":email, "password":password})
+            .then((response) => {
+                //console.log(response.data) 
+                setUser(response.data);
+                Cookies.set("user", JSON.stringify(user));
+                router.push("/relatorios");
+            })
+            .catch((error) => {
+                console.log(error.response.data);
+            })
       };
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
