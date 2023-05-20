@@ -29,6 +29,8 @@ export default function Login(props: LoginProps) {
         "token": ""
     });
 
+    const [error, setError] = useState("");
+
     const handleSubmit = async  (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
     
@@ -39,6 +41,10 @@ export default function Login(props: LoginProps) {
             })
             .catch((error) => {
                 console.log(error.response.data);
+                if(error.response && error.response.status >= 400 && error.response.status <= 500)
+                {
+                setError(error.response.data.message)
+                }
             })
       };
 
@@ -80,6 +86,7 @@ export default function Login(props: LoginProps) {
                             required
                         />
                     </div>
+                    {error && <div className={styles.error_msg}>{error}</div>}
                     <input className={styles.loginButton} type="submit" value="Login" />
                 </form>
             </div>
