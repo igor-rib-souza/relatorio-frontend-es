@@ -1,6 +1,6 @@
 "use client";
 import styles from './page.module.css';
-import { Mail, Lock } from 'lucide-react';
+import { Mail, Lock, Hash } from 'lucide-react';
 import { useState } from 'react';
 import api from '../../services/api';
 
@@ -36,6 +36,19 @@ export default function ForgotPassword(props: ForgotPasswordProps) {
         <div className={styles.changePasswordContainer}>
           <h1 className={styles.changePasswordText}>Altere sua senha</h1>
           <form className={styles.formContainer} onSubmit={handleSubmit}>
+            <div className={styles.fieldContainer}>
+              <Hash className={styles.iconContainer} size={24} />
+              <input
+                className={styles.inputContainer}
+                type="text"
+                id="code"
+                name="code"
+                placeholder="Código de alteração"
+                value={password}
+                onChange={handlePasswordChange}
+                required
+              />
+            </div>
             <div className={styles.fieldContainer}>
               <Lock className={styles.iconContainer} size={24} />
               <input
