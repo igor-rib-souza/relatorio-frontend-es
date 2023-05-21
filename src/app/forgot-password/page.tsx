@@ -5,7 +5,7 @@ import { useState } from 'react';
 import api from '../../services/api';
 
 interface ForgotPasswordProps {
-    onSubmit: (password: string, passwordConfirmation: string) => void;
+  onSubmit: (password: string, passwordConfirmation: string) => void;
 }
 
 export default function ForgotPassword(props: ForgotPasswordProps) {
@@ -34,7 +34,8 @@ export default function ForgotPassword(props: ForgotPasswordProps) {
     return (
       <div className={styles.pageContainer}>
         <div className={styles.changePasswordContainer}>
-          <h1 className={styles.changePasswordText}>Altere sua senha</h1>
+          <h1 className={styles.changePasswordTitle}>Altere sua senha</h1>
+          <p className={styles.changePasswordText}>O código de alteração foi enviado para o seu e-mail</p>
           <form className={styles.formContainer} onSubmit={handleSubmit}>
             <div className={styles.fieldContainer}>
               <Hash className={styles.iconContainer} size={24} />

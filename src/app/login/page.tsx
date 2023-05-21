@@ -32,20 +32,20 @@ export default function Login(props: LoginProps) {
 
     const [error, setError] = useState("");
 
-    const handleSubmit = async  (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
     
         try {
             const response = await api.post('login',{"email":email, "password":password});
             Cookies.set(response.data, JSON.stringify(user));
             router.push("/relatorios");
-        } catch(error: any) {
-                console.log(error.response?.data);
-                if(error.response?.status >= 400 && error.response?.status <= 500) {
-                    setError(error.response.data.message)
-                }
+        } catch (error: any) {
+            console.log(error.response?.data);
+            if (error.response?.status >= 400 && error.response?.status <= 500) {
+                setError(error.response.data.message)
             }
-      };
+        }
+    };
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
@@ -55,6 +55,14 @@ export default function Login(props: LoginProps) {
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setPassword(value);
+    };
+    
+    const handleForgotPassword = () => {
+        if (email) {
+            router.push(`/forgot-password?email=${encodeURIComponent(email)}`);
+        } else {
+            setError("Por favor, insira seu e-mail");
+        }
     };
     
     return ( 
@@ -88,9 +96,12 @@ export default function Login(props: LoginProps) {
                             required
                         />
                     </div>
-                    <Link href="/forgot-password" className={styles.forgotPassword}>
+                    <button
+                        className={styles.forgotPassword}
+                        onClick={handleForgotPassword}
+                    >
                         Esqueceu sua senha?
-                    </Link>
+                    </button>
                     {error && <div className={styles.error_msg}>{error}</div>}
                     <input className={styles.loginButton} type="submit" value="Login" />
                 </form>

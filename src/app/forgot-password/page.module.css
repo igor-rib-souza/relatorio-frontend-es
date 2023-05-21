@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
     padding: 60px 64px;
-    gap: 36px;
+   
 
     position: absolute;
     width: 456px;
@@ -25,11 +25,20 @@
     border-radius: 20px;
 }
 
-.changePasswordText {
+.changePasswordTitle {
     font-size: 36px;
     font-weight: 700;
     line-height: 120%;
     color: #131313;
+}
+
+.changePasswordText {
+    color: #131313;
+    margin: 8px;
+    font-size: 16px;
+    line-height: 120%;
+
+    text-align: center;
 }
 
 .formContainer {

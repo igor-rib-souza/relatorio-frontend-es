@@ -93,12 +93,15 @@
 }
 
 .forgotPassword {
+    border: none;
+    font-size: 16px;
     margin: 4px 0;
     color: #1F5591;
     text-decoration: underline;
 }
 
 .forgotPassword:hover {
+    
     color: #121C54;
     transition: all .2s;
 }
