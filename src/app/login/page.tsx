@@ -48,6 +48,10 @@ export default function Login(props: LoginProps) {
             })
       };
 
+    const handleForgotPassword = () => {
+        router.push('/forgot-password');
+    } 
+
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     };
@@ -85,6 +89,9 @@ export default function Login(props: LoginProps) {
                             onChange={handlePasswordChange}
                             required
                         />
+                    </div>
+                    <div className={styles.forgotPassword}>
+                        <a onClick={handleForgotPassword}>Esqueceu sua senha?</a>
                     </div>
                     {error && <div className={styles.error_msg}>{error}</div>}
                     <input className={styles.loginButton} type="submit" value="Login" />
