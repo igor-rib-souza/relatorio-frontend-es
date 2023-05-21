@@ -1,12 +1,13 @@
 "use client";
-import styles from './page.module.css';
-import { Mail, Lock } from 'lucide-react';
 import { useState } from 'react';
-import api from '../../services/api';
-import Cookies from  'js-cookie';
 import { useRouter } from "next/navigation";
 
+import Cookies from  'js-cookie';
+import { Mail, Lock } from 'lucide-react';
+import Link from 'next/link';
 
+import api from '../../services/api';
+import styles from './page.module.css';
 
 interface LoginProps {
     onSubmit: (email: string, password: string) => void;
@@ -34,31 +35,28 @@ export default function Login(props: LoginProps) {
     const handleSubmit = async  (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
     
-        await api.post('login',{"email":email, "password":password})
-            .then((response) => {
-                Cookies.set(response.data, JSON.stringify(user));
-                router.push("/relatorios");
-            })
-            .catch((error) => {
-                console.log(error.response.data);
-                if(error.response && error.response.status >= 400 && error.response.status <= 500)
-                {
-                setError(error.response.data.message)
+        try {
+            const response = await api.post('login',{"email":email, "password":password});
+            Cookies.set(response.data, JSON.stringify(user));
+            router.push("/relatorios");
+        } catch(error: any) {
+                console.log(error.response?.data);
+                if(error.response?.status >= 400 && error.response?.status <= 500) {
+                    setError(error.response.data.message)
                 }
-            })
+            }
       };
 
-    const handleForgotPassword = () => {
-        router.push('/forgot-password');
-    } 
-
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
+        const { value } = event.target;
+        setEmail(value);
     };
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
+        const { value } = event.target;
+        setPassword(value);
     };
+    
     return ( 
         <div className={styles.pageContainer}>
             <div className={styles.loginContainer}>
@@ -90,9 +88,9 @@ export default function Login(props: LoginProps) {
                             required
                         />
                     </div>
-                    <div className={styles.forgotPassword}>
-                        <a onClick={handleForgotPassword}>Esqueceu sua senha?</a>
-                    </div>
+                    <Link href="/forgot-password" className={styles.forgotPassword}>
+                        Esqueceu sua senha?
+                    </Link>
                     {error && <div className={styles.error_msg}>{error}</div>}
                     <input className={styles.loginButton} type="submit" value="Login" />
                 </form>
