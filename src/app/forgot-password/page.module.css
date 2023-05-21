@@ -13,11 +13,10 @@
     justify-content: center;
     align-items: center;
     padding: 60px 64px;
-   
 
     position: absolute;
     width: 456px;
-    height: 434px;
+    height: 538px;
 
     background: #EDF5FF;
 
@@ -99,4 +98,15 @@
     background: #1F5591;
     box-shadow: 0px 4px 0px #121C54;
     transition: all .2s;
+}
+
+.error {
+    width: 328px;
+    padding: 12px;
+    margin: 5px 0;
+    font-size: 14px;
+    background-color: #f34646;
+    color: #ffffff;
+    border-radius: 8px;
+    text-align: center;
 }
