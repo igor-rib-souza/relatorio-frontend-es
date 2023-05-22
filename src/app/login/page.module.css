@@ -106,7 +106,12 @@
     transition: all .2s;
 }
 
-.error_msg {
+.error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    
     width: 328px;
     padding: 12px;
     margin: 5px 0;

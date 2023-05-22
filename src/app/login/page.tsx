@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from "next/navigation";
 
 import Cookies from  'js-cookie';
-import { Mail, Lock } from 'lucide-react';
+import { Mail, Lock, Ban } from 'lucide-react';
 import Link from 'next/link';
 
 import api from '../../services/api';
@@ -102,7 +102,12 @@ export default function Login(props: LoginProps) {
                     >
                         Esqueceu sua senha?
                     </button>
-                    {error && <div className={styles.error_msg}>{error}</div>}
+                    {error && 
+                        <div className={styles.error}>
+                            <Ban/>
+                            <p>{error}</p>
+                        </div>
+                    }
                     <input className={styles.loginButton} type="submit" value="Login" />
                 </form>
             </div>
