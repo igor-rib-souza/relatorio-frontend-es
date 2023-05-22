@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Hash, Lock } from 'lucide-react';
+import { Ban, Hash, Lock } from 'lucide-react';
 import api from '../../services/api';
 import styles from './page.module.css';
 
@@ -88,7 +88,12 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
               required
             />
           </div>
-          {error && <p className={styles.error}>{error}</p>}
+          {error && 
+            <div className={styles.error}>
+              <Ban/>
+              <p>{error}</p>
+            </div>
+          }
           <input className={styles.changePasswordButton} type="submit" value="Alterar senha" />
         </form>
       </div>
