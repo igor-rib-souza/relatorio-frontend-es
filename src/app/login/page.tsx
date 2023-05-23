@@ -59,6 +59,7 @@ export default function Login(props: LoginProps) {
     
     const handleForgotPassword = () => {
         if (email) {
+            const response = api.post('/RequestPasswordRecovery', { email });
             router.push(`/forgot-password?email=${encodeURIComponent(email)}`);
         } else {
             setError("Por favor, insira seu e-mail");
