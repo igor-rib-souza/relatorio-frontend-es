@@ -3,10 +3,26 @@ import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, Promis
 import styles from "./page.module.css";
 import { Users, Newspaper, Tag, LogOut } from "lucide-react";
 import { useState, useEffect } from 'react';
+import Cookies from  'js-cookie';
+import { useRouter } from "next/navigation";
+
 
 
 export default function ButtonMenu(props: { text: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | PromiseLikeOfReactNode | null | undefined; }){
     
+    const router = useRouter();
+    const mockUser = {
+        "user": {
+            "_id": "",
+            "name": "",
+            "email": "",
+            "type": "",
+            "createdAt": "",
+            "updatedAt": "",
+            "__v": null
+        },
+        "token": ""
+    }
     const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
     useEffect(()=>{
@@ -16,9 +32,17 @@ export default function ButtonMenu(props: { text: string | number | boolean | Re
         });
     },[])
 
+
+    function logout(){
+        Cookies.set("user",JSON.stringify(mockUser))
+        router.replace('/login')
+    }
+
+
+
     return(
             <div>
-                <button className={styles.button} onClick={()=> console.log(windowSize)}>
+                <button className={styles.button} onClick={()=> {props.text == "Sair" ? logout() : console.log("f")}}>
                     {
                         props.text == "Relatórios" ? <Newspaper className={styles.ButtonMenu}/>
                         :
