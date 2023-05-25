@@ -19,7 +19,7 @@ export default function Relatorios(relatorios: any) {
         data.map((relatorio: any, index: number) => (
           <div key={index} className={styles.relatorio}>
             <div className={styles.dateRelatorio}>
-              <p className={styles.textDate}>{relatorio.date.slice(0,5)}</p>
+              <p className={styles.textDate}>{relatorio.date.slice(8, 10)}/{relatorio.date.slice(5, 7)}/{relatorio.date.slice(0, 4)}</p>
             </div>
             <div className={styles.containerRelatorIndividual}>
               <div className={styles.containerGlobalTimeTags}>
