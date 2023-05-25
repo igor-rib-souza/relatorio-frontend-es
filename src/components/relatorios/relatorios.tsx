@@ -1,11 +1,17 @@
+import { useEffect } from "react";
 import styles from "./page.module.css";
 import { ArrowRight, Clock } from "lucide-react";
 
 export default function Relatorios(relatorios: any) {
-  const data = relatorios["relatorios"]["relatorios"];
+  const data = relatorios["relatorios"]["reports"];
+
+  useEffect(() => {
+    console.log('pica')
+    console.log(data)
+  },[])
 
   return (
-    <div className={styles.container}>
+<div className={styles.container}>
       <div className={styles.headerRelatorio}>
         <div className={styles.containerHeaderData}>
           <p className={styles.date}>{data[0]["date"].slice(0,5)}</p>
@@ -42,6 +48,5 @@ export default function Relatorios(relatorios: any) {
           </div>
         ))}
       </div>
-    </div>
-  );
+    </div>  );
 }
