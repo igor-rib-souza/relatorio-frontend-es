@@ -9,8 +9,9 @@
     padding-bottom: 7%;
     width: 15vw;
     display: flex;
-    justify-content: start;
-    padding-left: 14%;
+    justify-content: flex-start;
+    align-content: center;
+    padding-left: 21%;
     padding-right: 14%;
     border-right: none;
 }
@@ -22,6 +23,9 @@
 }
 
 .ButtonMenu{
-    margin-right: 14%;
+    color: #292E45;
+    margin-right: 7%;
+    display: flex;  
+    justify-content: center;
 }
 
