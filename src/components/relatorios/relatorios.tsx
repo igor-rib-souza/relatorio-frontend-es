@@ -5,6 +5,7 @@ export default function Relatorios(relatorios: any) {
   const data = relatorios["relatorios"]["reports"];
 
 
+
   return (
     <div className={styles.container}>
       <div className={styles.headerRelatorio}>
@@ -33,8 +34,10 @@ export default function Relatorios(relatorios: any) {
                     />
                     <p className={styles.timeText}>{relatorio["endTime"]}</p>
                   </div>
-                  {data.map((tags: any, index: number) => (
-                    <p className={styles.text} key={index}>{relatorio["tags"][index]}</p>
+                  {data[index]["tags"].map((tags: any, index: number) => (
+                    <div key={index} className={styles.tagContainer}>
+                      <p className={styles.tagText} key={index}>{relatorio["tags"][index]}</p>
+                    </div>
                   ))}
                 </div>
                 <div className={styles.containerTextRelatorio}>

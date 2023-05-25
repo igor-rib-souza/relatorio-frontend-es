@@ -86,7 +86,7 @@
     background-color: #BDD4ED;
     border-radius: 32px;
     justify-content: space-evenly;
-    contain: strict;    
+    contain: strict;
 }
 
 .containerTextRelatorio{
@@ -108,4 +108,15 @@
 
 .text{
     font-size: 1.7vh;
+}
+
+.tagText{
+    font-size: 1.7vh;
+    padding: 3px;
+}
+
+.tagContainer{
+    background-color: pink;
+    border-radius: 14px;
+    margin-left: 1vh;
 }
