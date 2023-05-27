@@ -68,3 +68,47 @@
     border-radius: 100%;
     margin-left: 10%;
 }
+
+.profilePic:hover{
+    cursor: pointer;
+}
+
+.subMenuWrap{
+    z-index: 1;
+    position: absolute;
+    top: 9vh;
+    right: 2%;
+    width: 200px;
+    color: #ffffff;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 1s;
+}
+
+.subMenuWrap.openMenu{
+    max-height: 400px;
+}
+
+.subMenu{
+    background-color: #292E45;
+    padding: 20px;
+    border-radius: 0% 0% 20% 20%;
+}
+
+.subMenu hr{
+    margin: 2% 0%;
+    height: 1px;
+}
+
+.subMenu p{
+    font-weight: 400px;
+    transition: transform 0.5s;
+}
+
+.subMenu p:hover{
+    transform: translateX(5px);
+    cursor: pointer;
+    font-weight: 600;
+    opacity: 0.9;
+    color: #ffffff;
+}
