@@ -24,7 +24,7 @@ export default function Relatorios() {
       {
         "_id": "",
         "user": "",
-        "date": "",
+        "date": "0000-00-00T00:00:00.000Z",
         "startTime": "",
         "endTime": "",
         "text": "",
@@ -47,7 +47,7 @@ export default function Relatorios() {
         'Authorization': `Bearer ${user.token}`,
       }
     }).
-      then((response) => { setReports(response.data); })
+      then((response) => {if (response.data.reports[0]._id != "") {setReports(response.data);}   })
       .catch((error) => { alert(error.data) })
   }
 
