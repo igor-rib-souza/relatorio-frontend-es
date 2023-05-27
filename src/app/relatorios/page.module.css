@@ -83,3 +83,9 @@
     transition: 7%;
     opacity: 0.7;
 }
+
+.datePicker{
+    position: relative;
+    z-index: 2;
+    width: 6vw;
+}

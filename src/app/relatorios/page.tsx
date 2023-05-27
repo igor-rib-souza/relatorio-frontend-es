@@ -7,10 +7,16 @@ import api from "../../services/api"
 import { SetStateAction, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Calendar, Send } from "lucide-react";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
+
 
 export default function Relatorios() {
 
   const [text, setText] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [showTime, setShowTime] = useState(false);
+
 
   const handleChange = (event: { target: { value: SetStateAction<string>; }; }) => {
     setText(event.target.value);
@@ -44,8 +50,8 @@ export default function Relatorios() {
         'Authorization': `Bearer ${user.token}`,
       }
     }).
-      then((response) => {if (response.data.reports[0]._id != "") {setReports(response.data);}   })
-      .catch((error) => { alert(error.data) })
+      then((response) => { if (response.data.reports[0]._id != "") { setReports(response.data); } })
+      .catch((error) => { console.log(error.data) })
   }
 
   useEffect(() => {
@@ -81,6 +87,7 @@ export default function Relatorios() {
         </div>
         <div className={styles.container3}>
           {<Relatorio relatorios={reports} />}
+
           {/*
             A parte abaixo é referente ao footer 
           */}
@@ -91,10 +98,19 @@ export default function Relatorios() {
               </form>
             </div>
             <div className={styles.iconContainer}>
-              <div className={styles.iconBackground}>
+              {showTime ?
+                <DatePicker className={styles.datePicker}
+                  selected={startDate}
+                  onChange={(date: SetStateAction<Date>) => setStartDate(date)}
+                  showTimeSelect
+                />
+                :
+                <></>
+              }
+              <div className={styles.iconBackground} onClick={() => setShowTime(!showTime)}>
                 <Calendar className={styles.icon} />
               </div>
-              <button className={styles.iconBackground} onClick={() => {sendReport(); getReports()}}>
+              <button className={styles.iconBackground} onClick={() => { sendReport(); getReports() }}>
                 <Send className={styles.icon} />
               </button>
             </div>
