@@ -10,9 +10,9 @@ export default function Relatorios(relatorios: any) {
     <div className={styles.container}>
       <div className={styles.headerRelatorio}>
         <div className={styles.containerHeaderData}>
-          <p className={styles.date}>{data[0]["date"].slice(0, 5)}</p>
+          <p className={styles.date}>{data[0]["date"].slice(8, 10)}/{data[0]["date"].slice(5, 7)}/{data[0]["date"].slice(0, 4)}</p>
           <ArrowRight className={styles.arrow} size={13} />
-          <p className={styles.date}>{data[data.length - 1]["date"].slice(0, 5)}</p>
+          <p className={styles.date}>{data[data.length - 1]["date"].slice(8, 10)}/{data[data.length - 1]["date"].slice(5, 7)}/{data[data.length - 1]["date"].slice(0, 4)}</p>
         </div>
       </div>
       <div className={styles.containerRelatorio}>

@@ -30,14 +30,13 @@
 
 .containerHeaderData{
     border: 1px solid #B7BBD1;
-    width: 9vw;
+    width: 13vw;
     height: 2.7vh;
     border-radius: 24px;
     margin-left: 1%;
     display: flex;
     align-items: center;
     justify-content: center;
-    
 }
 
 .date{
