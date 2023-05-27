@@ -7,7 +7,7 @@ import Relatorio from "../../components/relatorios/relatorios";
 import api from "../../services/api"
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { set } from "zod";
+import { number, set } from "zod";
 
 export default function Relatorios() {
 
@@ -34,7 +34,7 @@ export default function Relatorios() {
   const user = JSON.parse(cookies)
 
   async function getReports() {
-    await api.get(`report/${user.user._id}/01012023/01012024`, {
+    await api.get(`report/${user.user._id}/01012000/01012024`, {
       headers: {
         'Authorization': `Bearer ${user.token}`,
       }
@@ -57,7 +57,7 @@ export default function Relatorios() {
         </div>
         <div className={styles.container3}>
           {<Relatorio relatorios={reports} />}
-          <Footer />
+          <Footer/>
         </div>
       </div>
     </div>
