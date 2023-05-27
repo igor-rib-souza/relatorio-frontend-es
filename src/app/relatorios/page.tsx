@@ -117,7 +117,7 @@ export default function Relatorios() {
               <div className={styles.iconBackground} onClick={() => setShowTime(!showTime)}>
                 <Calendar className={styles.icon} />
               </div>
-              <button className={styles.iconBackground} onClick={() => { sendReport(); getReports() }}>
+              <button className={styles.iconBackground} onClick={() => { sendReport(); getReports(); setShowTime(false) }}>
                 <Send className={styles.icon} />
               </button>
             </div>
