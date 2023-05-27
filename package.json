@@ -13,6 +13,7 @@
     "@types/react": "18.2.5",
     "@types/react-dom": "18.2.3",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "eslint": "8.39.0",
     "eslint-config-next": "13.4.1",
     "js-cookie": "^3.0.5",
