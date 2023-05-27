@@ -36,7 +36,7 @@ export default function Footer() {
     }
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container4}>
             <div className={styles.searchContainer}>
                 <form className={styles.formContainer}>
                     <input className={styles.inputContainer} placeholder="Relatório" value={text} onChange={handleChange }></input>
