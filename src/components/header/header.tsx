@@ -6,11 +6,19 @@ import Ausente from "../../../public/assets/foto-usuario-ausente.jpg"
 import Image from 'next/image';
 import { Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Cookies from  'js-cookie';
+import { useRouter } from "next/navigation";
 
 
 export default function Header(){
 
     const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+    
+    let menu = document.getElementById("menu");
+    
+    function toggleMenu(){
+        menu!.classList.toggle(styles.openMenu);
+    }
 
     useEffect(()=>{
         setWindowSize({
@@ -18,6 +26,25 @@ export default function Header(){
             height: window.innerHeight
         });
     },[])
+    
+    const router = useRouter();
+    const mockUser = {
+        "user": {
+            "_id": "",
+            "name": "",
+            "email": "",
+            "type": "",
+            "createdAt": "",
+            "updatedAt": "",
+            "__v": null
+        },
+        "token": ""
+    }
+
+    function logout(){
+        Cookies.set("user",JSON.stringify(mockUser))
+        router.replace('/login')
+    }
 
     return (
         <div className={styles.container}>
@@ -29,7 +56,16 @@ export default function Header(){
                     </form>
                     <Search className={styles.iconContainer} size={20}/>
                 </div>
-                <Image src={Ausente} alt={""} className={styles.profilePic}/>
+                <Image src={Ausente} alt={""} className={styles.profilePic} onClick={()=> toggleMenu()}/>
+                <div className={styles.subMenuWrap} id="menu">
+                    <div className={styles.subMenu}>
+                        <p>Editar Perfil</p>
+                        <p>Exibir analytics de Relatórios</p>
+                        <p>Meus Relatórios</p>
+                        <hr />
+                        <p onClick={()=> logout()}>Sair</p>
+                    </div>
+                </div>
             </div>
         </div>
     )
