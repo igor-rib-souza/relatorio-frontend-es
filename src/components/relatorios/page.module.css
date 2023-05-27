@@ -23,6 +23,7 @@
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .containerHeaderData{
@@ -50,7 +51,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    contain: strict;
+    contain: content;
     }
 
 .dateRelatorio{
@@ -94,6 +95,7 @@
     width: 65vw;
     height: 10vh;
     contain: strict;
+    overflow-y: auto;
 }
 
 .timeText{
@@ -104,6 +106,8 @@
     display: flex;
     align-items: center;
     contain: content;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 .text{
@@ -113,10 +117,12 @@
 .tagText{
     font-size: 1.7vh;
     padding: 3px;
+    color: #FBFBFB;
 }
 
 .tagContainer{
-    background-color: pink;
-    border-radius: 14px;
+    background-color: #1DCF00;
+    border-radius: 24px;
     margin-left: 1vh;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
 }
