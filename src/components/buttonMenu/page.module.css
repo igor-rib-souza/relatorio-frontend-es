@@ -9,12 +9,23 @@
     padding-bottom: 7%;
     width: 15vw;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    border: 0.5px solid #292E45;
+    justify-content: flex-start;
+    align-content: center;
+    padding-left: 21%;
+    padding-right: 14%;
+    border-right: none;
 }
 
-.buttonMenu{
-    color:#292E45
+.button:hover{
+    cursor: pointer;
+    transition: 0.5%;
+    opacity: 0.5;
 }
+
+.ButtonMenu{
+    color: #292E45;
+    margin-right: 7%;
+    display: flex;  
+    justify-content: center;
+}
+
