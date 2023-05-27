@@ -44,7 +44,7 @@ export default function Relatorios() {
       }
     ]
   });
-  const cookies: string = Cookies.get("user");
+  const cookies:any = Cookies.get("user");
   const user = JSON.parse(cookies);
   const adm = user.user.type == "adm";
 
@@ -105,7 +105,7 @@ export default function Relatorios() {
           {showTime ?
             <DatePicker
               selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              onChange={(date:any) => setStartDate(date)}
               showTimeSelect
               inline
             />
