@@ -1,15 +1,12 @@
 "use client"
 import Header from "../../components/header/header";
 import Menu from "../../components/menu/menu";
-import Footer from "../../components/footer/footer";
 import styles from "./page.module.css";
 import Relatorio from "../../components/relatorios/relatorios";
 import api from "../../services/api"
 import { SetStateAction, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { number, set } from "zod";
 import { Calendar, Send } from "lucide-react";
-import { text } from "stream/consumers";
 
 export default function Relatorios() {
 
