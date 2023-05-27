@@ -39,6 +39,12 @@
     justify-content: center;
 }
 
+.containerHeaderData:hover{
+    cursor: pointer;
+    transition: 7%;
+    opacity: 0.7;
+}
+
 .date{
     color:white;
     font-size: 0.9vw;
@@ -130,3 +136,18 @@
     margin-left: 1vh;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
 }
+
+.datePicker{
+    position: relative;
+    z-index: 2;
+    width: 6vw;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    width: 20.8vw;
+  }
