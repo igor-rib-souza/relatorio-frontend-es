@@ -82,6 +82,18 @@ export default function Relatorios() {
     <div className={styles.container}>
       <Header />
       <div className={styles.container2}>
+      <div                 className={`${styles.datePicker} ${styles.centered}`}>
+              {showTime ?
+                <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                showTimeSelect
+                inline
+              />
+                :
+                <></>
+              }
+              </div>
         <div>
           <Menu />
         </div>
@@ -98,15 +110,7 @@ export default function Relatorios() {
               </form>
             </div>
             <div className={styles.iconContainer}>
-              {showTime ?
-                <DatePicker className={styles.datePicker}
-                  selected={startDate}
-                  onChange={(date: SetStateAction<Date>) => setStartDate(date)}
-                  showTimeSelect
-                />
-                :
-                <></>
-              }
+
               <div className={styles.iconBackground} onClick={() => setShowTime(!showTime)}>
                 <Calendar className={styles.icon} />
               </div>
