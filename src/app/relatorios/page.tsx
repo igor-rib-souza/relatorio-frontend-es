@@ -9,12 +9,15 @@ import Cookies from "js-cookie";
 import { Calendar, Send } from "lucide-react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+import { addHours, format } from 'date-fns';
+
 
 
 export default function Relatorios() {
 
   const [text, setText] = useState("");
   const [startDate, setStartDate] = useState(new Date());
+  const [startTime, setStartTime] = useState("00:00")
   const [showTime, setShowTime] = useState(false);
 
 
@@ -63,11 +66,11 @@ export default function Relatorios() {
 
     await api.post(`/report/${user.user._id}`, {
       user: user.user._id,
-      date: "2021/03/01",
-      startTime: "00:00",
-      endTime: "11:00",
+      date: format(startDate,"dd/MM/yyyy"),
+      startTime: format(startDate,"HH:mm"),
+      endTime: format(addHours(startDate, 1),"HH:mm"),
       text: text,
-      tags: ["chatuba"]
+      tags: ["tag"]
     },
       {
         headers: {
