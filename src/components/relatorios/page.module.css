@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    
 }
 
 .headerRelatorio{
@@ -24,6 +25,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    
 }
 
 .containerHeaderData{
@@ -35,6 +37,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
 .date{
@@ -52,6 +55,7 @@
     align-items: center;
     justify-content: space-between;
     contain: content;
+    padding-left: 0.5vw;
     }
 
 .dateRelatorio{
@@ -77,6 +81,7 @@
     display: flex;
     flex-direction: column;
     contain: content;
+    padding-left: 0.5vw;
 }
 
 .containerTimeTags{
