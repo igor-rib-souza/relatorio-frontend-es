@@ -20,12 +20,17 @@ export default function Header(){
         menu!.classList.toggle(styles.openMenu);
     }
 
-    useEffect(()=>{
-        setWindowSize({
+    useEffect(() => {
+        const handleResize = () => {
+          setWindowSize({
             width: window.innerWidth,
             height: window.innerHeight
-        });
-    },[])
+          });
+        };
+        handleResize(); // Call once to set initial size
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
     
     const router = useRouter();
     const mockUser = {
@@ -49,7 +54,7 @@ export default function Header(){
     return (
         <div className={styles.container}>
             <div className={styles.headerContainer}>
-                <Image src={windowSize.width>500? Logo : LogoMinimalista} alt={""} className={windowSize.width > 500? styles.Logo : styles.LogoMinimalista}/>
+                <Image src={windowSize.width>700? Logo : LogoMinimalista} alt={""} className={windowSize.width > 500? styles.Logo : styles.LogoMinimalista}/>
                 <div className={styles.searchContainer}>
                     <form className={styles.formContainer}>
                         <input className={styles.inputContainer} placeholder="Buscar Tags..."></input>

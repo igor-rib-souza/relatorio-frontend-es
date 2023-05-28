@@ -60,7 +60,7 @@ export default function ButtonMenu(props: { text: string }) {
             props.text === "Tags" ? <Tag className={styles.ButtonMenu} /> :
               props.text === "Sair" ? <LogOut className={styles.ButtonMenu} /> : null
         }
-        {windowSize.width > 500 ? <p className={styles.text}>{props.text}</p> : null}
+        {windowSize.width > 700 ? <p className={styles.text}>{props.text}</p> : null}
       </button>
     </div>
   );
