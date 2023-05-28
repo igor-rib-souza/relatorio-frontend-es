@@ -26,6 +26,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.3"
+    "@types/js-cookie": "^3.0.3",
+    "@types/react-datepicker": "^4.11.2"
   }
 }

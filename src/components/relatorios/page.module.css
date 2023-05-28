@@ -30,14 +30,19 @@
 
 .containerHeaderData{
     border: 1px solid #B7BBD1;
-    width: 9vw;
+    width: 13vw;
     height: 2.7vh;
     border-radius: 24px;
     margin-left: 1%;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+}
+
+.containerHeaderData:hover{
+    cursor: pointer;
+    transition: 7%;
+    opacity: 0.7;
 }
 
 .date{
@@ -131,3 +136,18 @@
     margin-left: 1vh;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
 }
+
+.datePicker{
+    position: relative;
+    z-index: 2;
+    width: 6vw;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    width: 20.8vw;
+  }

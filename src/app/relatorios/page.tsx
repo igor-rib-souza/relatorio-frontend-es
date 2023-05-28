@@ -44,11 +44,22 @@ export default function Relatorios() {
       }
     ]
   });
-  const cookies: string = Cookies.get("user");
-  const user = JSON.parse(cookies)
+  const cookies:any = Cookies.get("user");
+  const user = JSON.parse(cookies);
+  const adm = user.user.type == "adm";
 
   async function getReports() {
-    await api.get(`report/${user.user._id}/01012000/01012024`, {
+    await api.get(`report/${user.user._id}/01010000/12129999`, {
+      headers: {
+        'Authorization': `Bearer ${user.token}`,
+      }
+    }).
+      then((response) => { if (response.data.reports[0]._id != "") { setReports(response.data); } })
+      .catch((error) => { console.log(error.data) })
+  }
+
+  async function getReportsAdm() {
+    await api.get(`report/all/${user.user._id}/01010000/12129999`, {
       headers: {
         'Authorization': `Bearer ${user.token}`,
       }
@@ -58,7 +69,12 @@ export default function Relatorios() {
   }
 
   useEffect(() => {
-    getReports();
+    {
+      adm ?
+        getReports()
+        :
+        getReportsAdm()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reports])
 
@@ -66,9 +82,9 @@ export default function Relatorios() {
 
     await api.post(`/report/${user.user._id}`, {
       user: user.user._id,
-      date: format(startDate,"dd/MM/yyyy"),
-      startTime: format(startDate,"HH:mm"),
-      endTime: format(addHours(startDate, 1),"HH:mm"),
+      date: format(startDate, "dd/MM/yyyy"),
+      startTime: format(startDate, "HH:mm"),
+      endTime: format(addHours(startDate, 1), "HH:mm"),
       text: text,
       tags: ["tag"]
     },
@@ -85,23 +101,23 @@ export default function Relatorios() {
     <div className={styles.container}>
       <Header />
       <div className={styles.container2}>
-      <div                 className={`${styles.datePicker} ${styles.centered}`}>
-              {showTime ?
-                <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                showTimeSelect
-                inline
-              />
-                :
-                <></>
-              }
-              </div>
+        <div className={`${styles.datePicker} ${styles.centered}`}>
+          {showTime ?
+            <DatePicker
+              selected={startDate}
+              onChange={(date:any) => setStartDate(date)}
+              showTimeSelect
+              inline
+            />
+            :
+            <></>
+          }
+        </div>
         <div>
           <Menu />
         </div>
         <div className={styles.container3}>
-          {<Relatorio relatorios={reports} />}
+          {<Relatorio relatorios={reports}/>}
 
           {/*
             A parte abaixo é referente ao footer 
@@ -117,7 +133,7 @@ export default function Relatorios() {
               <div className={styles.iconBackground} onClick={() => setShowTime(!showTime)}>
                 <Calendar className={styles.icon} />
               </div>
-              <button className={styles.iconBackground} onClick={() => { sendReport(); getReports() }}>
+              <button className={styles.iconBackground} onClick={() => { sendReport(); { adm ? getReportsAdm() : getReports() } setShowTime(false) }}>
                 <Send className={styles.icon} />
               </button>
             </div>
