@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import { addHours, format } from 'date-fns';
 import api from "@/services/api";
 import Cookies from "js-cookie";
+import { start } from "repl";
 
 export default function Relatorios(relatorios: any) {
   const cookies: any = Cookies.get("user");
@@ -16,6 +17,7 @@ export default function Relatorios(relatorios: any) {
   const [showTime, setShowTime] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [auxDate, setAuxDate] = useState(new Date());
   const [close, setClose] = useState(false);
   const mock = {
     "reports": [
@@ -40,6 +42,10 @@ export default function Relatorios(relatorios: any) {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+    if (end != null) {
+      setAuxDate(end);
+      setShowTime(false);
+    }
   };
 
 
@@ -112,9 +118,9 @@ export default function Relatorios(relatorios: any) {
       </div>
       <div className={styles.headerRelatorio}>
         <div className={styles.containerHeaderData} onClick={() => setShowTime(!showTime)}>
-          <p className={styles.date}>{data[0]["date"].slice(8, 10)}/{data[0]["date"].slice(5, 7)}/{data[0]["date"].slice(0, 4)}</p>
+          <p className={styles.date}>{format(startDate, "dd/MM/yyyy")}</p>
           <ArrowRight className={styles.arrow} size={13} />
-          <p className={styles.date}>{data[data.length - 1]["date"].slice(8, 10)}/{data[data.length - 1]["date"].slice(5, 7)}/{data[data.length - 1]["date"].slice(0, 4)}</p>
+          <p className={styles.date}>{endDate != null ? format(endDate, "dd/MM/yyyy") : format(auxDate, "dd/MM/yyyy")}</p>
         </div>
       </div>
       <div className={styles.containerRelatorio}>
@@ -136,6 +142,13 @@ export default function Relatorios(relatorios: any) {
                     />
                     <p className={styles.timeText}>{relatorio["endTime"]}</p>
                   </div>
+                  {adm ?
+                    <div className={styles.tagContainer} style={{backgroundColor: "red"}}>
+                      <p className={styles.tagText}>{relatorio.user.name}</p>
+                    </div>
+                    :
+                    <></>
+                  }
                   {data[index]["tags"].map((tags: any, index: number) => (
                     <div key={index} className={styles.tagContainer}>
                       <p className={styles.tagText} key={index}>{relatorio["tags"][index]}</p>
