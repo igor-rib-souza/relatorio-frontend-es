@@ -6,62 +6,62 @@ import styles from "./page.module.css";
 import { Users, Newspaper, Tag, LogOut } from "lucide-react";
 
 export default function ButtonMenu(props: { text: string }) {
-  const router = useRouter();
-  const mockUser = {
-    "user": {
-      "_id": "",
-      "name": "",
-      "email": "",
-      "type": "",
-      "createdAt": "",
-      "updatedAt": "",
-      "__v": null
-    },
-    "token": ""
-  };
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
+    const router = useRouter();
+    const mockUser = {
+        "user": {
+            "_id": "",
+            "name": "",
+            "email": "",
+            "type": "",
+            "createdAt": "",
+            "updatedAt": "",
+            "__v": null
+        },
+        "token": ""
     };
-    handleResize(); // Call once to set initial size
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
-  function logout() {
-    Cookies.set("user", JSON.stringify(mockUser));
-    router.replace('/login');
-  }
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+        };
+        handleResize(); // Call once to set initial size
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
-  const handleButtonClick = () => {
-    switch (props.text) {
-      case "Sair":
-        logout();
-        break;
-      case "Relatórios":
-        router.replace('relatorios');
-        break;
-      default:
-        console.log("f");
-        break;
+    function logout() {
+        Cookies.set("user", JSON.stringify(mockUser));
+        router.replace('/login');
     }
-  };
 
-  return (
-    <div>
-      <button className={styles.button} onClick={handleButtonClick}>
-        {props.text === "Relatórios" ? <Newspaper className={styles.ButtonMenu} /> :
-          props.text === "Membros" ? <Users className={styles.ButtonMenu} /> :
-            props.text === "Tags" ? <Tag className={styles.ButtonMenu} /> :
-              props.text === "Sair" ? <LogOut className={styles.ButtonMenu} /> : null
+    const handleButtonClick = () => {
+        switch (props.text) {
+            case "Sair":
+                logout();
+                break;
+            case "Relatórios":
+                router.replace('relatorios');
+                break;
+            default:
+                console.log("f");
+                break;
         }
-        {windowSize.width > 700 ? <p className={styles.text}>{props.text}</p> : null}
-      </button>
-    </div>
-  );
+    };
+
+    return (
+        <div>
+            <button className={styles.button} onClick={handleButtonClick} style={windowSize.width > 700 ? { justifyContent: 'flex-start' } : { justifyContent: 'center' }}>
+                {props.text === "Relatórios" ? <Newspaper className={styles.ButtonMenu} /> :
+                    props.text === "Membros" ? <Users className={styles.ButtonMenu} /> :
+                        props.text === "Tags" ? <Tag className={styles.ButtonMenu} /> :
+                            props.text === "Sair" ? <LogOut className={styles.ButtonMenu} /> : null
+                }
+                {windowSize.width > 700 ? <p className={styles.text}>{props.text}</p> : null}
+            </button>
+        </div>
+    );
 }
