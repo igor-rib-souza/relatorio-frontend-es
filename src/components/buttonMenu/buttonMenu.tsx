@@ -1,66 +1,67 @@
 "use client";
-import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, PromiseLikeOfReactNode } from "react";
-import styles from "./page.module.css";
-import { Users, Newspaper, Tag, LogOut } from "lucide-react";
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
+import styles from "./page.module.css";
+import { Users, Newspaper, Tag, LogOut } from "lucide-react";
 
+export default function ButtonMenu(props: { text: string }) {
+  const router = useRouter();
+  const mockUser = {
+    "user": {
+      "_id": "",
+      "name": "",
+      "email": "",
+      "type": "",
+      "createdAt": "",
+      "updatedAt": "",
+      "__v": null
+    },
+    "token": ""
+  };
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+    handleResize(); // Call once to set initial size
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-export default function ButtonMenu(props: { text: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | PromiseLikeOfReactNode | null | undefined; }) {
+  function logout() {
+    Cookies.set("user", JSON.stringify(mockUser));
+    router.replace('/login');
+  }
 
-    const router = useRouter();
-    const mockUser = {
-        "user": {
-            "_id": "",
-            "name": "",
-            "email": "",
-            "type": "",
-            "createdAt": "",
-            "updatedAt": "",
-            "__v": null
-        },
-        "token": ""
+  const handleButtonClick = () => {
+    switch (props.text) {
+      case "Sair":
+        logout();
+        break;
+      case "Relatórios":
+        router.replace('relatorios');
+        break;
+      default:
+        console.log("f");
+        break;
     }
-    const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  };
 
-    useEffect(() => {
-        setWindowSize({
-            width: window.innerWidth,
-            height: window.innerHeight
-        });
-    }, [])
-
-
-    function logout() {
-        Cookies.set("user", JSON.stringify(mockUser))
-        router.replace('/login')
-    }
-
-
-
-    return (
-        <div>
-            <button className={styles.button} onClick={() => { props.text == "Sair" ? logout() : props.text == "Relatórios" ? router.replace('relatorios') : console.log("f") }}>
-                {
-                    props.text == "Relatórios" ? <Newspaper className={styles.ButtonMenu} />
-                        :
-                        props.text == "Membros" ? <Users className={styles.ButtonMenu} />
-                            :
-                            props.text == "Tags" ? <Tag className={styles.ButtonMenu} />
-                                :
-                                props.text == "Sair" ? <LogOut className={styles.ButtonMenu} />
-                                    :
-                                    <></>
-                }
-                {
-                    windowSize.width > 500 ?
-                        <p className={styles.text}>{props.text}</p>
-                        :
-                        <></>
-                }
-            </button>
-        </div>
-    )
+  return (
+    <div>
+      <button className={styles.button} onClick={handleButtonClick}>
+        {props.text === "Relatórios" ? <Newspaper className={styles.ButtonMenu} /> :
+          props.text === "Membros" ? <Users className={styles.ButtonMenu} /> :
+            props.text === "Tags" ? <Tag className={styles.ButtonMenu} /> :
+              props.text === "Sair" ? <LogOut className={styles.ButtonMenu} /> : null
+        }
+        {windowSize.width > 500 ? <p className={styles.text}>{props.text}</p> : null}
+      </button>
+    </div>
+  );
 }
