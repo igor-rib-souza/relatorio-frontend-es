@@ -42,7 +42,7 @@ export default function Relatorios(relatorios: any) {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
-    if (end != null){
+    if (end != null) {
       setAuxDate(end);
       setShowTime(false);
     }
@@ -120,7 +120,7 @@ export default function Relatorios(relatorios: any) {
         <div className={styles.containerHeaderData} onClick={() => setShowTime(!showTime)}>
           <p className={styles.date}>{format(startDate, "dd/MM/yyyy")}</p>
           <ArrowRight className={styles.arrow} size={13} />
-          <p className={styles.date}>{endDate != null? format(endDate, "dd/MM/yyyy") : format(auxDate, "dd/MM/yyyy")}</p>
+          <p className={styles.date}>{endDate != null ? format(endDate, "dd/MM/yyyy") : format(auxDate, "dd/MM/yyyy")}</p>
         </div>
       </div>
       <div className={styles.containerRelatorio}>
@@ -142,6 +142,13 @@ export default function Relatorios(relatorios: any) {
                     />
                     <p className={styles.timeText}>{relatorio["endTime"]}</p>
                   </div>
+                  {adm ?
+                    <div className={styles.tagContainer} style={{backgroundColor: "red"}}>
+                      <p className={styles.tagText}>{relatorio.user.name}</p>
+                    </div>
+                    :
+                    <></>
+                  }
                   {data[index]["tags"].map((tags: any, index: number) => (
                     <div key={index} className={styles.tagContainer}>
                       <p className={styles.tagText} key={index}>{relatorio["tags"][index]}</p>
