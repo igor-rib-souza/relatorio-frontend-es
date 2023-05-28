@@ -43,7 +43,8 @@ export default function Relatorios(relatorios: any) {
     setStartDate(start);
     setEndDate(end);
     if (end != null){
-      setAuxDate(end)
+      setAuxDate(end);
+      setShowTime(false);
     }
   };
 
