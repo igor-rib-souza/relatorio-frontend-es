@@ -49,7 +49,7 @@ export default function Relatorios() {
   const adm = user.user.type == "adm";
 
   async function getReports() {
-    await api.get(`report/${user.user._id}/01012000/01012024`, {
+    await api.get(`report/${user.user._id}/01010000/12129999`, {
       headers: {
         'Authorization': `Bearer ${user.token}`,
       }
@@ -59,7 +59,7 @@ export default function Relatorios() {
   }
 
   async function getReportsAdm() {
-    await api.get(`report/all/${user.user._id}/01012000/01012024`, {
+    await api.get(`report/all/${user.user._id}/01010000/12129999`, {
       headers: {
         'Authorization': `Bearer ${user.token}`,
       }
@@ -117,7 +117,7 @@ export default function Relatorios() {
           <Menu />
         </div>
         <div className={styles.container3}>
-          {<Relatorio relatorios={reports} />}
+          {<Relatorio relatorios={reports}/>}
 
           {/*
             A parte abaixo é referente ao footer 
