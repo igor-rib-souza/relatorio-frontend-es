@@ -97,7 +97,7 @@ export default function Login(props: LoginProps) {
                             required
                         />
                     </div>
-                    <button
+                    <button type="button"
                         className={styles.forgotPassword}
                         onClick={handleForgotPassword}
                     >
