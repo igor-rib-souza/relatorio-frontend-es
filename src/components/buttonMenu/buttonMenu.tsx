@@ -9,6 +9,10 @@ export default function ButtonMenu(props: { text: string }) {
     const router = useRouter();
     const mockUser = {
         "user": {
+            "profilePic": {
+                "url": null,
+                "key": null
+            },
             "_id": "",
             "name": "",
             "email": "",
