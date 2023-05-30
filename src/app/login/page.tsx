@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { useRouter } from "next/navigation";
+import { z } from 'zod';
 
 import Cookies from  'js-cookie';
 import { Mail, Lock, Ban } from 'lucide-react';
@@ -31,22 +32,29 @@ export default function Login(props: LoginProps) {
     });
 
     const [error, setError] = useState("");
+    const emailSchema = z.string().email().refine(value => value.includes('@codexjr'), 'Insira um email válido da CodeX');
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-    
-        try {
-            const response = await api.post('login',{"email":email, "password":password});
-            Cookies.set("user", JSON.stringify(response.data));
-            router.push("/relatorios");
-        } catch (error: any) {
-            console.log(error.response?.data);
-            if (error.response?.status >= 400 && error.response?.status <= 500) {
-                setError(error.response.data.message)
-            }
-        }
-    };
-
+      event.preventDefault();
+  
+      try {
+          // Validar o email
+          emailSchema.parse(email);
+  
+          const response = await api.post('login',{"email":email, "password":password});
+          Cookies.set("user", JSON.stringify(response.data));
+          router.push("/relatorios");
+      } catch (error: any) {
+          console.log(error.response?.data);
+          if (error.response?.status >= 400 && error.response?.status <= 500) {
+              setError(error.response.data.message);
+          } else if (error instanceof z.ZodError) {
+              const errorMessage = error.errors[0]?.message ?? "Erro de validação";
+              setError(errorMessage);
+          }
+      }
+  };
+  
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setEmail(value);
