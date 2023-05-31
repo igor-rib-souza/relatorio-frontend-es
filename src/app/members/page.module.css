@@ -59,5 +59,17 @@
     height: 9.5vh;
     border-radius: 100%;
     margin-left: 1vw;
-    border: 1px grey;
+}
+
+.memberName{
+    font-weight: bold;
+    font-size: 2vh;
+}
+
+.containerText{
+    margin-left: 1vw;
+    height: 8vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
