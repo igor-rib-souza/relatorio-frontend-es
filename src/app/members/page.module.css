@@ -74,3 +74,21 @@
     flex-direction: column;
     justify-content: space-around;
 }
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    width: 20.8vw;
+  }
+
+  .modal{
+    height: 40vh;
+    width: 13vw;
+    background-color: white;
+    border: 2px solid red;
+    border-radius: 30px;
+    display: flex;
+  }

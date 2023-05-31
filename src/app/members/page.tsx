@@ -37,6 +37,16 @@ const Members = () => {
 
     return (
         <div className={styles.container}>
+            {
+                popUp ?
+                <div className={styles.centered}>
+                    <div className={styles.modal}>
+                        <p>bala</p>
+                    </div>
+                </div>
+                :
+                null
+            }
             <Header />
             <div className={styles.container2}>
                 <Menu />
@@ -54,8 +64,8 @@ const Members = () => {
                     }
                 </div>
                 <div className={styles.containerButtons} >
-                    <div className={styles.button} style={{ backgroundColor: '#2A73C5' }}>
-                        <p className={styles.textButton} onClick={() => setPopUp(true)}>
+                    <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => setPopUp(!popUp)}>
+                        <p className={styles.textButton} >
                             Criar Novo Usuário
                         </p>
                     </div>
