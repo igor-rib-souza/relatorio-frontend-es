@@ -45,6 +45,9 @@ const Members = () => {
                         members.map((member: any, index: Key | null | undefined) => (
                             <div className={styles.containerMember} key={index} style={index == 0 ? { marginTop: '5vh' } : {}}>
                                 <Image src={member.profilePic.url != null ? member.profilePic.url : Ausente} alt='' width={200} height={200} className={styles.profilePic}></Image>
+                                <div>
+                                    <p>{member.name}</p>
+                                </div>
                             </div>
                         ))
                     }
