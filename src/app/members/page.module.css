@@ -43,3 +43,11 @@
     font-weight: 700;
     font-size: 12px;
 }
+
+.containerMember{
+    background-color: #EDF5FF;
+    width: 65vw;
+    height: 15.5vh;
+    margin-top: 2vh;
+    border-radius: 32px;
+}

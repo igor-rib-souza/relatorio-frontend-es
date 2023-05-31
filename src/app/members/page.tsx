@@ -3,7 +3,7 @@ import Header from '@/components/header/header';
 import styles from './page.module.css';
 import Menu from '@/components/menu/menu';
 import api from '@/services/api';
-import { useEffect, useState } from 'react';
+import { Key, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
 const Members = () => {
@@ -15,13 +15,13 @@ const Members = () => {
     const [popUp, setPopUp] = useState(false)
 
     async function getMembers() {
-        await api.get(`tag/all`, {
+        await api.get(`user/all`, {
             headers: {
                 'Authorization': `Bearer ${user.token}`,
             }
         }).
             then((response) => {
-                console.log(response.data)
+                setMembers(response.data.users)
             })
             .catch((error) => { console.log(error) })
     }
@@ -35,6 +35,13 @@ const Members = () => {
             <Header />
             <div className={styles.container2}>
                 <Menu />
+                <div>
+                    {
+                        members.map((member: any, index: Key | null | undefined) => (
+                            <div className={styles.containerMember} key={index} style={index == 0 ? { marginTop: '5vh' } : {}}></div>
+                        ))
+                    }
+                </div>
                 <div className={styles.containerButtons} >
                     <div className={styles.button} style={{ backgroundColor: '#2A73C5' }}>
                         <p className={styles.textButton} onClick={() => setPopUp(true)}>
