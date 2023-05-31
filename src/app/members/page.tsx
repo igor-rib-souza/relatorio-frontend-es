@@ -5,7 +5,7 @@ import Menu from '@/components/menu/menu';
 import api from '@/services/api';
 import { Key, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import Ausente from "../../../public/assets/foto-usuario-ausente.jpg"
+import Ausente from '../../../public/assets/foto-usuario-ausente.jpg';
 import Image from 'next/image';
 
 

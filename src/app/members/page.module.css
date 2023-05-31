@@ -58,4 +58,6 @@
     width: 9.5vh;
     height: 9.5vh;
     border-radius: 100%;
+    margin-left: 1vw;
+    border: 1px grey;
 }
