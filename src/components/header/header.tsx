@@ -68,7 +68,7 @@ export default function Header() {
                     </form>
                     <Search className={styles.iconContainer} size={20} />
                 </div>
-                <Image src={profilePic != null ? profilePic : Ausente} alt={"Profile picture"} className={styles.profilePic} onClick={() => toggleMenu()} width={200} height={200}/>
+                <Image src={profilePic != null ? profilePic : Ausente} alt={"Profile picture"} className={styles.profilePic} onClick={() => toggleMenu()} width={100} height={100}/>
                 <div className={styles.subMenuWrap} id="menu">
                     <div className={styles.subMenu}>
                         <p>Editar Perfil</p>
