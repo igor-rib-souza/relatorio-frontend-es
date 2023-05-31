@@ -12,6 +12,7 @@ const Tags = () => {
     const cookies: any = Cookies.get("user");
     const user = JSON.parse(cookies);
     const adm = user.user.type === "adm";
+    const [popUp, setPopUp] = useState(false)
 
     async function getTags() {
         await api.get(`tag/all`, {
@@ -36,7 +37,7 @@ const Tags = () => {
                 <Menu />
                 <div className={styles.containerButtons} >
                     <div className={styles.button} style={{ backgroundColor: '#2A73C5' }}>
-                        <p className={styles.textButton}>
+                        <p className={styles.textButton} onClick={() => setPopUp(true)}>
                             Criar Nova Tag
                         </p>
                     </div>
