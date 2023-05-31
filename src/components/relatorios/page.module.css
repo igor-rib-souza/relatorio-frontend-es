@@ -74,14 +74,14 @@
 }
 
 .dateRelatorioSmall{
-    width: 30vw;
+    width: 20vw;
     display: flex;
     align-items: center;
-    height: 8vh;
+    height: 6vh;
     flex-direction: column;
     justify-content: center;
     background-color: #BDD4ED;
-    border-radius: 32px;
+    border-radius: 15px;
     contain: strict;
 }
 
@@ -92,7 +92,7 @@
 
 .textDateSmall{
     font-weight: bolder;
-    font-size: 1.8vh;
+    font-size: 1.60vh;
 }
 
 /*Esse aqui engloba os dois abaixo*/
