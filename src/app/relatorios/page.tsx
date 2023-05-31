@@ -15,6 +15,7 @@ const Relatorios = () => {
   const [text, setText] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
+  const [render, setRender] = useState(false)
   const [reports, setReports] = useState({
     reports: [
       {
@@ -32,7 +33,7 @@ const Relatorios = () => {
     ],
   });
 
-  const cookies:any = Cookies.get("user");
+  const cookies: any = Cookies.get("user");
   const user = JSON.parse(cookies);
   const adm = user.user.type === "adm";
 
@@ -50,7 +51,7 @@ const Relatorios = () => {
       if (response.data.reports[0]._id !== "") {
         setReports(response.data);
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error.data);
     }
   }, [user.user._id, user.token]);
@@ -65,7 +66,7 @@ const Relatorios = () => {
       if (response.data.reports[0]._id !== "") {
         setReports(response.data);
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error.data);
     }
   }, [user.user._id, user.token]);
@@ -89,7 +90,7 @@ const Relatorios = () => {
         }
       );
       setText("");
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error.response.data);
     }
   }, [startDate, text, user.user._id, user.token]);
@@ -108,12 +109,18 @@ const Relatorios = () => {
       <div className={styles.container2}>
         <div className={`${styles.datePicker} ${styles.centered}`}>
           {showTime && (
-            <DatePicker selected={startDate} onChange={(date:any) => setStartDate(date)} showTimeSelect inline />
+            <DatePicker selected={startDate} onChange={(date: any) => setStartDate(date)} showTimeSelect inline />
           )}
         </div>
         <Menu />
         <div className={styles.container3}>
-          <Relatorio relatorios={reports} />
+          {render ?
+            <Relatorio relatorios={reports} />
+            :
+            <div>
+              <Relatorio relatorios={reports} className="" />
+            </div>
+          }
 
           {/* The section below refers to the footer */}
           <div className={styles.container4}>
@@ -135,11 +142,7 @@ const Relatorios = () => {
                 className={styles.iconBackground}
                 onClick={() => {
                   sendReport();
-                  if (adm) {
-                    getReportsAdm();
-                  } else {
-                    getReports();
-                  }
+                  setRender(!render)
                   setShowTime(false);
                 }}
               >
