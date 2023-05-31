@@ -37,6 +37,17 @@
     justify-content: center;
 }
 
+.containerHeaderDataSmall{
+    border: 1px solid #B7BBD1;
+    width: 13vw;
+    height: 2.7vh;
+    border-radius: 24px;
+    margin-left: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .containerHeaderData:hover{
     cursor: pointer;
     transition: 7%;
@@ -77,7 +88,7 @@
     width: 20vw;
     display: flex;
     align-items: center;
-    height: 6vh;
+    height: 35px;
     flex-direction: column;
     justify-content: center;
     background-color: #BDD4ED;
@@ -92,7 +103,7 @@
 
 .textDateSmall{
     font-weight: bolder;
-    font-size: 1.60vh;
+    font-size: 10px;
 }
 
 /*Esse aqui engloba os dois abaixo*/

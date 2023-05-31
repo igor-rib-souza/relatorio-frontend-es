@@ -131,7 +131,7 @@ export default function Relatorios(relatorios: any) {
         }
       </div>
       <div className={styles.headerRelatorio}>
-        <div className={styles.containerHeaderData} onClick={() => setShowTime(!showTime)}>
+        <div className={windowSize.width > 500 ? styles.containerHeaderData : styles.containerHeaderDataSmall} onClick={() => setShowTime(!showTime)}>
           <p className={styles.date}>{format(startDate, "dd/MM/yyyy")}</p>
           <ArrowRight className={styles.arrow} size={13} />
           <p className={styles.date}>{endDate != null ? format(endDate, "dd/MM/yyyy") : format(auxDate, "dd/MM/yyyy")}</p>
