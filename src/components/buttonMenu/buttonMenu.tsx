@@ -52,6 +52,10 @@ export default function ButtonMenu(props: { text: string }) {
                 break;
             case "Tags":
                 router.push('tags');
+                break;
+            case "Membros":
+                router.push('members');
+                break;
             default:
                 console.log("f");
                 break;
