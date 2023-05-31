@@ -3,3 +3,43 @@
     width: 100vw;
     height: 100vh;
 }
+
+.container2{
+    display: flex;
+    justify-content: space-between;
+}
+
+.containerButtons{
+    background-color: #292E45;
+    height: 81vh;
+    width: 15vw;
+    border-radius: 16px 16px 0px 0px;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 1vw;
+}
+
+.button{
+    height: 7vh;
+    width: 12vw;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px #1F5591;
+    margin-top: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button:hover{
+    cursor: pointer;
+    transition: 0.5%;
+    opacity: 0.5;
+}
+
+.textButton{
+    color: white;
+    font-weight: 700;
+    font-size: 12px;
+}
