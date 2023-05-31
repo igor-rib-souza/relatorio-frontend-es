@@ -50,4 +50,12 @@
     height: 15.5vh;
     margin-top: 2vh;
     border-radius: 32px;
+    display: flex;
+    align-items: center;
+}
+
+.profilePic{
+    width: 9.5vh;
+    height: 9.5vh;
+    border-radius: 100%;
 }
