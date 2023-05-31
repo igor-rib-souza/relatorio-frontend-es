@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import { start } from "repl";
 
 export default function Relatorios(relatorios: any) {
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const cookies: any = Cookies.get("user");
   const user = JSON.parse(cookies);
   const adm = user.user.type == "adm";
@@ -100,6 +101,19 @@ export default function Relatorios(relatorios: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endDate])
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+    handleResize(); // Call once to set initial size
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
   return (
     <div className={styles.container}>
       <div className={`${styles.datePicker} ${styles.centered}`}>
@@ -117,7 +131,7 @@ export default function Relatorios(relatorios: any) {
         }
       </div>
       <div className={styles.headerRelatorio}>
-        <div className={styles.containerHeaderData} onClick={() => setShowTime(!showTime)}>
+        <div className={windowSize.width > 500 ? styles.containerHeaderData : styles.containerHeaderDataSmall} onClick={() => setShowTime(!showTime)}>
           <p className={styles.date}>{format(startDate, "dd/MM/yyyy")}</p>
           <ArrowRight className={styles.arrow} size={13} />
           <p className={styles.date}>{endDate != null ? format(endDate, "dd/MM/yyyy") : format(auxDate, "dd/MM/yyyy")}</p>
@@ -127,8 +141,8 @@ export default function Relatorios(relatorios: any) {
         {data[0]._id != "" ?
           data.map((relatorio: any, index: number) => (
             <div key={index} className={styles.relatorio}>
-              <div className={styles.dateRelatorio}>
-                <p className={styles.textDate}>{relatorio.date.slice(8, 10)}/{relatorio.date.slice(5, 7)}/{relatorio.date.slice(0, 4)}</p>
+              <div className={windowSize.width > 500 ? styles.dateRelatorio : styles.dateRelatorioSmall}>
+                <p className={windowSize.width > 500 ? styles.textDate : styles.textDateSmall}>{windowSize.width > 500 ? relatorio.date.slice(8, 10) + '/' + relatorio.date.slice(5, 7) + '/' + relatorio.date.slice(0, 4) : relatorio.date.slice(8, 10) + '/' + relatorio.date.slice(5, 7)}</p>
               </div>
               <div className={styles.containerRelatorIndividual}>
                 <div className={styles.containerGlobalTimeTags}>
@@ -143,7 +157,7 @@ export default function Relatorios(relatorios: any) {
                     <p className={styles.timeText}>{relatorio["endTime"]}</p>
                   </div>
                   {adm ?
-                    <div className={styles.tagContainer} style={{backgroundColor: "red"}}>
+                    <div className={styles.tagContainer} style={{ backgroundColor: "red" }}>
                       <p className={styles.tagText}>{relatorio.user.name}</p>
                     </div>
                     :
