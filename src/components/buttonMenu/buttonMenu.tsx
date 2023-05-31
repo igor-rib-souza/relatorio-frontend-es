@@ -50,6 +50,8 @@ export default function ButtonMenu(props: { text: string }) {
             case "Relatórios":
                 router.replace('relatorios');
                 break;
+            case "Tags":
+                router.push('tags');
             default:
                 console.log("f");
                 break;
