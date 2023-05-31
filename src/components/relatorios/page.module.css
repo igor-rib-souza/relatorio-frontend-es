@@ -73,9 +73,26 @@
     contain: strict;
 }
 
+.dateRelatorioSmall{
+    width: 30vw;
+    display: flex;
+    align-items: center;
+    height: 8vh;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #BDD4ED;
+    border-radius: 32px;
+    contain: strict;
+}
+
 .textDate{
     font-weight: bolder;
     font-size: 1.7vh;
+}
+
+.textDateSmall{
+    font-weight: bolder;
+    font-size: 1.8vh;
 }
 
 /*Esse aqui engloba os dois abaixo*/
