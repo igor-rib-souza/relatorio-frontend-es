@@ -53,6 +53,12 @@ export default function Header() {
         "token": ""
     }
 
+    const modalProfileSettings = document.getElementById("modalProfileSettings")
+
+    function profileSettings() {
+        modalProfileSettings!.showModal();
+    }
+
     function logout() {
         Cookies.set("user", JSON.stringify(mockUser))
         router.replace('/login')
@@ -71,13 +77,19 @@ export default function Header() {
                 <Image src={profilePic != null ? profilePic : Ausente} alt={"Profile picture"} className={styles.profilePic} onClick={() => toggleMenu()} width={100} height={100}/>
                 <div className={styles.subMenuWrap} id="menu">
                     <div className={styles.subMenu}>
-                        <p>Editar Perfil</p>
+                        <p onClick={() => profileSettings()}>Editar Perfil</p>
                         <p>Exibir analytics de Relatórios</p>
                         <p>Meus Relatórios</p>
                         <hr />
                         <p onClick={() => logout()}>Sair</p>
                     </div>
                 </div>
+                <dialog id="modalProfileSettings" className={styles.modalProfileSettings}>
+                    <h1>Atualizar foto</h1>
+                    <p>Função</p>
+                    <p>Nome</p>
+                    <button className={styles.button}>Atualizar</button>
+                </dialog>
             </div>
         </div>
     )
