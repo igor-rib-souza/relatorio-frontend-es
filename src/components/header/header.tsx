@@ -55,10 +55,12 @@ export default function Header() {
         "token": ""
     }
 
-    const modalProfileSettings = document.getElementById("modalProfileSettings")
+    const modalProfileSettings = document.getElementById("modalProfileSettings") as HTMLDialogElement;
 
     function profileSettings() {
-        modalProfileSettings!.showModal();
+    if (modalProfileSettings) {
+        modalProfileSettings.showModal();
+    }
     }
 
     function logout() {
