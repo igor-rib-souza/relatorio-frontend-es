@@ -58,9 +58,9 @@ export default function Header() {
     const modalProfileSettings = document.getElementById("modalProfileSettings") as HTMLDialogElement;
 
     function profileSettings() {
-    if (modalProfileSettings) {
-        modalProfileSettings.showModal();
-    }
+        if (modalProfileSettings) {
+            modalProfileSettings.showModal();
+        }
     }
 
     function logout() {
