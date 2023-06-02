@@ -5,6 +5,8 @@ import LogoMinimalista from "../../../public/assets/logo-minimalista.png"
 import Ausente from "../../../public/assets/foto-usuario-ausente.jpg"
 import Image from 'next/image';
 import { Search } from 'lucide-react';
+import { ImagePlus } from 'lucide-react';
+import { User2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
@@ -84,8 +86,25 @@ export default function Header() {
                         <p onClick={() => logout()}>Sair</p>
                     </div>
                 </div>
+                {/* Aqui abaixo começa o modal de Editar Perfil */}
                 <dialog id="modalProfileSettings" className={styles.modalProfileSettings}>
-                    <h1>Atualizar foto</h1>
+                    <div className={styles.containerChangePic}>
+                        <Image src={Ausente} alt={"Profile picture"} className={styles.settingsProfilePic}/>
+                        <button className={styles.changePic}>
+                            <ImagePlus className={styles.iconContainer}/>
+                            {"Atualizar Foto"}
+                        </button>
+                    </div>
+                    <div className={styles.fieldContainer}>
+                        <User2 className={styles.iconContainer} size={24} />
+                        <input 
+                        className={styles.inputContainer}
+                        type="name"
+                        id="name"
+                        name="name"
+                        placeholder={(user)}
+                        />
+                    </div>
                     <p>Função</p>
                     <p>Nome</p>
                     <button className={styles.button}>Atualizar</button>
