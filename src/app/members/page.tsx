@@ -126,7 +126,7 @@ const Members = () => {
                                     <p style={{ fontSize: '2vh', paddingLeft: '1vw', paddingRight: '1vw', paddingTop: '2vh', paddingBottom: '2vh' }}>ou</p>
                                     <div className={styles.line} />
                                 </div>
-                                <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }}>
+                                <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }} onClick={() => setPopUp(false)}>
                                     <p className={styles.textButton}>
                                         Cancelar
                                     </p>
@@ -154,7 +154,10 @@ const Members = () => {
                     }
                 </div>
                 <div className={styles.containerButtons} >
-                    <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => setPopUp(!popUp)}>
+                    {
+                    adm ? 
+                    <div>
+                        <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => setPopUp(!popUp)}>
                         <p className={styles.textButton} >
                             Criar Novo Usuário
                         </p>
@@ -165,6 +168,11 @@ const Members = () => {
                             Excluir Usuário
                         </p>
                     </div>
+                    </div>
+                    : 
+                    null
+                    }
+                    
                     <div className={styles.button} style={{ backgroundColor: '#162369', boxShadow: '0px 4px 0px #111A4F' }}>
                         <p className={styles.textButton}>
                             Exibir Detalhes
