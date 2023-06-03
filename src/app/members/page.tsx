@@ -1,0 +1,245 @@
+"use client"
+import Header from '@/components/header/header';
+import styles from './page.module.css';
+import Menu from '@/components/menu/menu';
+import api from '@/services/api';
+import { Key, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import Ausente from '../../../public/assets/foto-usuario-ausente.jpg';
+import Image from 'next/image';
+import { Settings, User2, Mail, Lock, User, Ban } from "lucide-react";
+
+
+const Members = () => {
+
+    const [members, setMembers] = useState([])
+    const cookies: any = Cookies.get("user");
+    const user = JSON.parse(cookies);
+    const adm = user.user.type === "adm";
+    const [popUp, setPopUp] = useState(false);
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [userFunction, setUserFunction] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [selectedUser, setSelectedUser] = useState('');
+
+
+    async function createMember() {
+        await api.post(`user/${user.user._id}`, {
+            name: name,
+            email: email,
+            password: password,
+            userFunction: userFunction
+        }, {
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+            }
+        }).then(() => {
+            setName('');
+            setEmail('');
+            setPassword('');
+            setUserFunction('');
+            setConfirmPassword('');
+        }).catch((error) => console.log(error))
+    }
+
+    async function getMembers() {
+        await api.get(`user/all`, {
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+            }
+        }).
+            then((response) => {
+                setMembers(response.data.users)
+                console.log(members)
+            })
+            .catch((error) => { console.log(error) })
+    }
+
+    useEffect(() => {
+        getMembers()
+    }, [members])
+
+    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setPassword(value);
+    };
+
+    const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setConfirmPassword(value);
+    };
+
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setEmail(value);
+    };
+
+    const handleFunctionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setUserFunction(value);
+    };
+
+    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setName(value);
+    };
+
+    function check() {
+        if (name != "" && email != "" && password != "" && confirmPassword != "" && userFunction != "" && password == confirmPassword) {
+            setPopUp(false), createMember(), getMembers()
+        }
+
+
+        else if (password.localeCompare(confirmPassword)) {
+
+            setShowError(true)
+            setErrorMessage("As senhas precisam ser iguais")
+        }
+
+        else {
+            setShowError(true)
+            setErrorMessage("Preencha todos os campos")
+        }
+    }
+
+    async function deleteUser(){
+        await api.delete(`user/${user.user._id}/${selectedUser}`,
+        {
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+            }
+        }).then((responnse) => {
+            getMembers()
+        }).catch((error) => console.log(error))
+    }
+
+    return (
+        <div className={styles.container}>
+            {
+                popUp ?
+                    <div className={styles.centered}>
+                        <div className={styles.modal} style={showError ? { height: "80vh" } : {}}>
+                            <div className={styles.inputContainer}>
+                                <Settings color='#121C54' />
+                                <input
+                                    className={styles.input}
+                                    placeholder='Função'
+                                    onChange={handleFunctionChange}
+                                />
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <User2 color='#121C54' />
+                                <input
+                                    className={styles.input}
+                                    placeholder='Nome'
+                                    onChange={handleNameChange}
+                                />
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <Mail color='#121C54' />
+                                <input
+                                    className={styles.input}
+                                    placeholder='email@codexjr.com.br'
+                                    onChange={handleEmailChange}
+                                />
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <Lock color='#121C54' />
+                                <input
+                                    className={styles.input}
+                                    placeholder='Password'
+                                    onChange={handlePasswordChange}
+                                />
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <Lock color='#121C54' />
+                                <input
+                                    className={styles.input}
+                                    placeholder='Confirm password'
+                                    onChange={handleConfirmPasswordChange}
+                                />
+                            </div>
+
+                            <div>
+                                <div className={styles.button2} onClick={() => { check() }}>
+                                    <p className={styles.textButton}>
+                                        Criar Membro
+                                    </p>
+                                </div>
+                                <div className={styles.container3}>
+                                    <div className={styles.line} />
+                                    <p style={{ fontSize: '2vh', paddingLeft: '1vw', paddingRight: '1vw', paddingTop: '2vh', paddingBottom: '2vh' }}>ou</p>
+                                    <div className={styles.line} />
+                                </div>
+                                <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }} onClick={() => { setPopUp(false), setShowError(false), setErrorMessage('') }}>
+                                    <p className={styles.textButton}>
+                                        Cancelar
+                                    </p>
+                                </div>
+                            </div>
+                            {showError &&
+                                <div className={styles.error}>
+                                    <Ban />
+                                    <p>{errorMessage}</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    :
+                    null
+            }
+            <Header />
+            <div className={styles.container2}>
+                <Menu />
+                <div style={{ overflowY: 'auto', scrollbarWidth: 'thin', marginBottom: '1vh' }}>
+                    {
+                        members.map((member: any, index: Key | null | undefined) => (
+                            <div className={styles.containerMember} key={index} style={selectedUser == member._id ? { backgroundColor: '#2A73C5' } : {}} onClick={() => setSelectedUser(member._id)}>
+
+                                <Image src={member.profilePic.url != null ? member.profilePic.url : Ausente} alt='' width={200} height={200} className={styles.profilePic}></Image>
+                                <div className={styles.containerText}>
+                                    <p className={styles.memberName}>{member.name}</p>
+                                    <p>{member.userFunction}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+                <div className={styles.containerButtons} >
+                    {
+                        adm ?
+                            <div>
+                                <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => setPopUp(!popUp)}>
+                                    <p className={styles.textButton} >
+                                        Criar Novo Usuário
+                                    </p>
+                                </div>
+
+                                <div className={styles.button} style={{ backgroundColor: '#2A73C5', }} onClick={() => deleteUser()}>
+                                    <p className={styles.textButton}>
+                                        Excluir Usuário
+                                    </p>
+                                </div>
+                            </div>
+                            :
+                            null
+                    }
+
+                    <div className={styles.button} style={{ backgroundColor: '#162369', boxShadow: '0px 4px 0px #111A4F' }}>
+                        <p className={styles.textButton}>
+                            Exibir Detalhes
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    )
+}
+
+export default Members;
