@@ -7,7 +7,7 @@ import { Key, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import Ausente from '../../../public/assets/foto-usuario-ausente.jpg';
 import Image from 'next/image';
-import { Settings, User2, Mail, Lock, User } from "lucide-react";
+import { Settings, User2, Mail, Lock, User, Ban } from "lucide-react";
 
 
 const Members = () => {
@@ -23,25 +23,27 @@ const Members = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [userFunction, setUserFunction] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     async function createMember() {
-        await api.post(`user/${user.user._id}`,{
-            name:name,
-            email:email,
-            password:password,
-            userFunction:userFunction
-        },{
+        await api.post(`user/${user.user._id}`, {
+            name: name,
+            email: email,
+            password: password,
+            userFunction: userFunction
+        }, {
             headers: {
                 'Authorization': `Bearer ${user.token}`,
             }
-        }).then(()=> {
+        }).then(() => {
             setName('');
             setEmail('');
             setPassword('');
             setUserFunction('');
             setConfirmPassword('');
-    }).catch((error) => console.log(error))
+        }).catch((error) => console.log(error))
     }
 
     async function getMembers() {
@@ -86,12 +88,30 @@ const Members = () => {
         setName(value);
     };
 
+    function check() {
+        if (name != "" && email != "" && password != "" && confirmPassword != "" && userFunction != "" && password == confirmPassword) {
+            setPopUp(false), createMember(), getMembers()
+        }
+
+
+        else if (password.localeCompare(confirmPassword)) {
+
+            setShowError(true)
+            setErrorMessage("As senhas precisam ser iguais")
+        }
+
+        else {
+            setShowError(true)
+            setErrorMessage("Preencha todos os campos")
+        }
+    }
+
     return (
         <div className={styles.container}>
             {
                 popUp ?
                     <div className={styles.centered}>
-                        <div className={styles.modal}>
+                        <div className={styles.modal} style={showError ? { height: "80vh" } : {}}>
                             <div className={styles.inputContainer}>
                                 <Settings color='#121C54' />
                                 <input
@@ -134,7 +154,7 @@ const Members = () => {
                             </div>
 
                             <div>
-                                <div className={styles.button2} onClick={() =>{setPopUp(false), createMember(), getMembers()}}>
+                                <div className={styles.button2} onClick={() => { check() }}>
                                     <p className={styles.textButton}>
                                         Criar Membro
                                     </p>
@@ -144,12 +164,18 @@ const Members = () => {
                                     <p style={{ fontSize: '2vh', paddingLeft: '1vw', paddingRight: '1vw', paddingTop: '2vh', paddingBottom: '2vh' }}>ou</p>
                                     <div className={styles.line} />
                                 </div>
-                                <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }} onClick={() => setPopUp(false)}>
+                                <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }} onClick={() => { setPopUp(false), setShowError(false), setErrorMessage('') }}>
                                     <p className={styles.textButton}>
                                         Cancelar
                                     </p>
                                 </div>
                             </div>
+                            {showError &&
+                                <div className={styles.error}>
+                                    <Ban />
+                                    <p>{errorMessage}</p>
+                                </div>
+                            }
                         </div>
                     </div>
                     :
@@ -158,7 +184,7 @@ const Members = () => {
             <Header />
             <div className={styles.container2}>
                 <Menu />
-                <div>
+                <div style={{ overflowY: 'auto' }}>
                     {
                         members.map((member: any, index: Key | null | undefined) => (
                             <div className={styles.containerMember} key={index} style={index == 0 ? { marginTop: '5vh' } : {}} onClick={() => console.log(member)}>
@@ -198,6 +224,7 @@ const Members = () => {
                     </div>
                 </div>
             </div>
+
         </div>
     )
 }

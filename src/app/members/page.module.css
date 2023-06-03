@@ -7,6 +7,8 @@
 .container2 {
     display: flex;
     justify-content: space-between;
+    height: 91vh;
+    overflow: hidden;
 }
 
 .containerButtons {
@@ -160,4 +162,20 @@
     width: 15vw;
     justify-content: center;
     align-items: center;
+}
+
+.error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    
+    width: 15vw;
+    padding: 12px;
+    margin: 5px 0;
+    font-size: 14px;
+    background-color: #f34646;
+    color: #ffffff;
+    border-radius: 8px;
+    text-align: center;
 }
