@@ -15,7 +15,7 @@ import api from "@/services/api";
 
 
 
-export default async function Header() {
+export default function Header() {
 
     const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
     const cookies: any = Cookies.get("user");
@@ -93,29 +93,7 @@ export default async function Header() {
         
             await api.post(`user/image/${user.user._id}`,formData, config)
             **/}
-            const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-            const file = fileInput.files && fileInput.files.length > 0 ? fileInput.files[0] : null;
-            
-            if (file) {
-              const formData = new FormData();
-              formData.append('file', file);
-            
-              const config = {
-                headers: {
-                  'Authorization': 'Bearer your-token',
-                },
-              };
-            
-              api.post(`user/image/${user.user._id}`, formData, config)
-                .then(response => {
-                  console.log('Foto de perfil atualizada com sucesso');
-                })
-                .catch(error => {
-                  console.error('Erro ao atualizar a foto de perfil:', error);
-                });
-            } else {
-              console.log('Nenhum arquivo selecionado');
-            }
+           
             
             
         }
@@ -148,13 +126,13 @@ export default async function Header() {
 
 
       
-{/**/}
+{/**/}{/*onClick ={() => uploadProfileImage()}*/}
 
                 <dialog id="modalProfileSettings" className={styles.modalProfileSettings}>
                     <div className={styles.containerChangePic}>
                         <Image src={Ausente} alt={"Profile picture"} className={styles.settingsProfilePic} />
                         <button className={styles.changePic} >
-                            <ImagePlus className={styles.iconContainer} onClick ={() => uploadProfileImage()}/>
+                            <ImagePlus className={styles.iconContainer} />
                             {"Atualizar Foto"}
                         </button>
                     </div>
