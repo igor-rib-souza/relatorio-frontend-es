@@ -41,7 +41,7 @@ const Members = () => {
             setPassword('');
             setUserFunction('');
             setConfirmPassword('');
-    })
+    }).catch((error) => console.log(error))
     }
 
     async function getMembers() {
