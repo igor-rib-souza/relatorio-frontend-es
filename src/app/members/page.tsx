@@ -25,6 +25,25 @@ const Members = () => {
     const [userFunction, setUserFunction] = useState('');
 
 
+    async function createMember() {
+        await api.post(`user/${user.user._id}`,{
+            name:name,
+            email:email,
+            password:password,
+            userFunction:userFunction
+        },{
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+            }
+        }).then(()=> {
+            setName('');
+            setEmail('');
+            setPassword('');
+            setUserFunction('');
+            setConfirmPassword('');
+    })
+    }
+
     async function getMembers() {
         await api.get(`user/all`, {
             headers: {
@@ -78,7 +97,6 @@ const Members = () => {
                                 <input
                                     className={styles.input}
                                     placeholder='Função'
-                                    value={userFunction}
                                     onChange={handleFunctionChange}
                                 />
                             </div>
@@ -116,7 +134,7 @@ const Members = () => {
                             </div>
 
                             <div>
-                                <div className={styles.button2}>
+                                <div className={styles.button2} onClick={() =>{setPopUp(false), createMember(), getMembers()}}>
                                     <p className={styles.textButton}>
                                         Criar Membro
                                     </p>
@@ -155,24 +173,24 @@ const Members = () => {
                 </div>
                 <div className={styles.containerButtons} >
                     {
-                    adm ? 
-                    <div>
-                        <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => setPopUp(!popUp)}>
-                        <p className={styles.textButton} >
-                            Criar Novo Usuário
-                        </p>
-                    </div>
+                        adm ?
+                            <div>
+                                <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => setPopUp(!popUp)}>
+                                    <p className={styles.textButton} >
+                                        Criar Novo Usuário
+                                    </p>
+                                </div>
 
-                    <div className={styles.button} style={{ backgroundColor: '#2A73C5', }}>
-                        <p className={styles.textButton}>
-                            Excluir Usuário
-                        </p>
-                    </div>
-                    </div>
-                    : 
-                    null
+                                <div className={styles.button} style={{ backgroundColor: '#2A73C5', }}>
+                                    <p className={styles.textButton}>
+                                        Excluir Usuário
+                                    </p>
+                                </div>
+                            </div>
+                            :
+                            null
                     }
-                    
+
                     <div className={styles.button} style={{ backgroundColor: '#162369', boxShadow: '0px 4px 0px #111A4F' }}>
                         <p className={styles.textButton}>
                             Exibir Detalhes
