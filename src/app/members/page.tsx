@@ -25,6 +25,7 @@ const Members = () => {
     const [userFunction, setUserFunction] = useState('');
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [selectedUser, setSelectedUser] = useState('');
 
 
     async function createMember() {
@@ -184,10 +185,11 @@ const Members = () => {
             <Header />
             <div className={styles.container2}>
                 <Menu />
-                <div style={{ overflowY: 'auto' }}>
+                <div style={{ overflowY: 'auto', scrollbarWidth: 'thin', marginBottom: '1vh' }}>
                     {
                         members.map((member: any, index: Key | null | undefined) => (
-                            <div className={styles.containerMember} key={index} style={index == 0 ? { marginTop: '5vh' } : {}} onClick={() => console.log(member)}>
+                            <div className={styles.containerMember} key={index} style={selectedUser == member._id ? { backgroundColor: '#2A73C5' } : {}} onClick={() => setSelectedUser(member._id)}>
+
                                 <Image src={member.profilePic.url != null ? member.profilePic.url : Ausente} alt='' width={200} height={200} className={styles.profilePic}></Image>
                                 <div className={styles.containerText}>
                                     <p className={styles.memberName}>{member.name}</p>

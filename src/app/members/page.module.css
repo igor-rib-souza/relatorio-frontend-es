@@ -9,6 +9,7 @@
     justify-content: space-between;
     height: 91vh;
     overflow: hidden;
+    
 }
 
 .containerButtons {
@@ -179,3 +180,4 @@
     border-radius: 8px;
     text-align: center;
 }
+
