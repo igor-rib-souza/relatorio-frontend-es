@@ -107,6 +107,17 @@ const Members = () => {
         }
     }
 
+    async function deleteUser(){
+        await api.delete(`user/${user.user._id}/${selectedUser}`,
+        {
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+            }
+        }).then((responnse) => {
+            getMembers()
+        }).catch((error) => console.log(error))
+    }
+
     return (
         <div className={styles.container}>
             {
@@ -209,7 +220,7 @@ const Members = () => {
                                     </p>
                                 </div>
 
-                                <div className={styles.button} style={{ backgroundColor: '#2A73C5', }}>
+                                <div className={styles.button} style={{ backgroundColor: '#2A73C5', }} onClick={() => deleteUser()}>
                                     <p className={styles.textButton}>
                                         Excluir Usuário
                                     </p>
