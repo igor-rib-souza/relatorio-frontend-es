@@ -25,7 +25,13 @@ const Members = () => {
     const [userFunction, setUserFunction] = useState('');
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [selectedUser, setSelectedUser] = useState('');
+    const [selectedUser, setSelectedUser] = useState({
+        '_id': '',
+        'name': '',
+        'userFunction': '',
+        'email': 'email'
+    });
+    const [showDetails, setShowDetails] = useState(false);
 
 
     async function createMember() {
@@ -107,19 +113,40 @@ const Members = () => {
         }
     }
 
-    async function deleteUser(){
-        await api.delete(`user/${user.user._id}/${selectedUser}`,
-        {
-            headers: {
-                'Authorization': `Bearer ${user.token}`,
-            }
-        }).then((responnse) => {
-            getMembers()
-        }).catch((error) => console.log(error))
+    async function deleteUser() {
+        await api.delete(`user/${user.user._id}/${selectedUser._id}`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`,
+                }
+            }).then((responnse) => {
+                getMembers()
+            }).catch((error) => console.log(error))
     }
 
     return (
         <div className={styles.container}>
+            {
+                showDetails ?
+                    <div className={styles.centered}>
+                        <div className={styles.details}>
+                            <div className={styles.inputContainer}>
+                                <User2 color='#121C54' />
+                                <p className={styles.input}>{selectedUser.name}</p>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <Settings color='#121C54' />
+                                <p className={styles.input}>{selectedUser.userFunction}</p>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <Mail color='#121C54' />
+                                <p className={styles.input}>{selectedUser.email}</p>
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    null
+            }
             {
                 popUp ?
                     <div className={styles.centered}>
@@ -199,7 +226,7 @@ const Members = () => {
                 <div style={{ overflowY: 'auto', scrollbarWidth: 'thin', marginBottom: '1vh' }}>
                     {
                         members.map((member: any, index: Key | null | undefined) => (
-                            <div className={styles.containerMember} key={index} style={selectedUser == member._id ? { backgroundColor: '#2A73C5' } : {}} onClick={() => setSelectedUser(member._id)}>
+                            <div className={styles.containerMember} key={index} style={selectedUser._id == member._id ? { backgroundColor: '#2A73C5' } : {}} onClick={() => setSelectedUser(member)}>
 
                                 <Image src={member.profilePic.url != null ? member.profilePic.url : Ausente} alt='' width={200} height={200} className={styles.profilePic}></Image>
                                 <div className={styles.containerText}>
@@ -230,7 +257,7 @@ const Members = () => {
                             null
                     }
 
-                    <div className={styles.button} style={{ backgroundColor: '#162369', boxShadow: '0px 4px 0px #111A4F' }}>
+                    <div onClick={() => {selectedUser._id != '' ? setShowDetails(!showDetails) : null}} className={styles.button} style={{ backgroundColor: '#162369', boxShadow: '0px 4px 0px #111A4F' }}>
                         <p className={styles.textButton}>
                             Exibir Detalhes
                         </p>
