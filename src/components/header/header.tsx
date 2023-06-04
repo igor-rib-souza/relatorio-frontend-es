@@ -14,14 +14,24 @@ import api from "@/services/api";
 export default function Header() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const cookies: any = Cookies.get("user");
-  const user = JSON.parse(cookies);
+  const [user, setUser] = useState(JSON.parse(cookies));
   const profilePic = user.user.profilePic.url;
   const [modal, setModal] = useState(false);
   const [userFunction, setUserFunction] = useState('');
   const [name, setName] = useState('');
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [selectedImage, setSelectedImage] = useState("");
 
   let menu = document.getElementById("menu");
+
+  async function getUser() {
+    await api.get(`user/${user.user._id}`, {
+      headers: {
+        'Authorization': `Bearer ${user.token}`,
+      }
+    }).then((response) => {
+      setUser(response.data)
+  })
+  }
 
   function toggleMenu() {
     menu!.classList.toggle(styles.openMenu);
@@ -49,7 +59,7 @@ export default function Header() {
       headers: {
         'Authorization': `Bearer ${user.token}`,
       }
-    });
+    }).then(() => getUser());
   }
 
   const router = useRouter();
@@ -86,7 +96,7 @@ export default function Header() {
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    const file: any = event.target.files?.[0];
     setSelectedImage(file);
     console.log(file);
   };
@@ -133,11 +143,11 @@ export default function Header() {
                 Atualizar
               </p>
             </div>
-            <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }} onClick={() => { setModal(false)}}>
-                                    <p className={styles.textButton}>
-                                        Cancelar
-                                    </p>
-                                </div>
+            <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }} onClick={() => { setModal(false) }}>
+              <p className={styles.textButton}>
+                Cancelar
+              </p>
+            </div>
           </div>
         </div>
       ) : null}
