@@ -133,6 +133,11 @@ export default function Header() {
                 Atualizar
               </p>
             </div>
+            <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }} onClick={() => { setModal(false)}}>
+                                    <p className={styles.textButton}>
+                                        Cancelar
+                                    </p>
+                                </div>
           </div>
         </div>
       ) : null}
