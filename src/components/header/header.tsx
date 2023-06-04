@@ -8,6 +8,9 @@ import { Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
+import { Settings, User2 } from "lucide-react";
+import api from "@/services/api";
+
 
 
 export default function Header() {
@@ -16,6 +19,9 @@ export default function Header() {
     const cookies: any = Cookies.get("user");
     const user = JSON.parse(cookies);
     const profilePic = user.user.profilePic.url;
+    const [modal, setModal] = useState(false);
+    const [userFunction, setUserFunction] = useState('');
+    const [name, setName] = useState('');
 
     let menu = document.getElementById("menu");
 
@@ -34,6 +40,19 @@ export default function Header() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    async function editUser(){
+        api.put(`user/${user.user._id}/${user.user._id}`,
+        {
+            'name': name,
+            'userFunction':userFunction
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+            }
+        })
+    }
 
     const router = useRouter();
     const mockUser = {
@@ -58,8 +77,55 @@ export default function Header() {
         router.replace('/login')
     }
 
+    const handleFunctionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setUserFunction(value);
+    };
+
+    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setName(value);
+    };
+
     return (
         <div className={styles.container}>
+            {
+                modal ?
+                    <div className={styles.centered}>
+                        <div className={styles.modal}>
+                            <div style={{ display: 'flex', border: '2px solid red', alignItems: 'center' }}>
+                                <Image src={""} alt={""} className={styles.profilePic} />
+                                <div>
+                                    <p className={styles.editText}>Atualizar Foto</p>
+                                </div>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <Settings color='#121C54' />
+                                <input
+                                    className={styles.input}
+                                    placeholder='Função'
+                                    onChange={handleFunctionChange}
+                                />
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <User2 color='#121C54' />
+                                <input
+                                    className={styles.input}
+                                    placeholder='Nome'
+                                    onChange={handleNameChange}
+                                />
+                            </div>
+
+                            <div className={styles.button} style={{ backgroundColor: '#2A73C5', }} onClick={() => {setModal(false),editUser()}}>
+                                <p className={styles.textButton}>
+                                    Atualizar
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    null
+            }
             <div className={styles.headerContainer}>
                 <Image src={windowSize.width > 700 ? Logo : LogoMinimalista} alt={""} className={windowSize.width > 500 ? styles.Logo : styles.LogoMinimalista} />
                 <div className={styles.searchContainer}>
@@ -68,10 +134,10 @@ export default function Header() {
                     </form>
                     <Search className={styles.iconContainer} size={20} />
                 </div>
-                <Image src={profilePic != null ? profilePic : Ausente} alt={"Profile picture"} className={styles.profilePic} onClick={() => toggleMenu()} width={200} height={200}/>
+                <Image src={profilePic != null ? profilePic : Ausente} alt={"Profile picture"} className={styles.profilePic} onClick={() => toggleMenu()} width={200} height={200} />
                 <div className={styles.subMenuWrap} id="menu">
                     <div className={styles.subMenu}>
-                        <p>Editar Perfil</p>
+                        <p onClick={() => setModal(!modal)}>Editar Perfil</p>
                         <p>Exibir analytics de Relatórios</p>
                         <p>Meus Relatórios</p>
                         <hr />
