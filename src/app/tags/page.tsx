@@ -14,6 +14,7 @@ const Tags = () => {
     const user = JSON.parse(cookies);
     const adm = user.user.type === "adm";
     const [popUp, setPopUp] = useState(false)
+    const [tagName, setTagName] = useState('');
 
     async function getTags() {
         await api.get(`tag/all`, {
@@ -24,12 +25,31 @@ const Tags = () => {
             then((response) => {
                 console.log(response.data)
             })
-            .catch((error) => { console.log(error) })
+            .catch((error) => { console.log(error.response.data) })
     }
 
     useEffect(() => {
         getTags()
     }, [tags])
+
+    const handleTagNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setTagName(value);
+    }
+
+    async function createTag() {
+        api.post(`tag/${user.user._id}`,
+            {
+                'name': tagName,
+                'color': ''
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`,
+                }
+            }).then(() => { setTagName('') })
+            .catch((error) => console.log(error))
+    }
 
     return (
         <div className={styles.container}>
@@ -39,25 +59,25 @@ const Tags = () => {
                         <div className={styles.modal}>
                             <div className={styles.inputContainer} color='#616269'>
                                 <Tag color='#121C54' />
-                                <input className={styles.input} placeholder='Nome da tag' />
+                                <input className={styles.input} placeholder='Nome da tag' onChange={handleTagNameChange} />
                             </div>
-                            <div className={styles.button2} onClick={() => { }}>
+                            <div className={styles.button2} onClick={() => { setPopUp(!popUp), createTag(), getTags() }}>
                                 <p className={styles.textButton}>
                                     Criar Tag
                                 </p>
                             </div>
-                                <div className={styles.container3}>
-                                    <div className={styles.line} />
-                                    <p style={{ fontSize: '2vh', paddingLeft: '1vw', paddingRight: '1vw',  }}>ou</p>
-                                    <div className={styles.line} />
-                                </div>
-                                <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }} onClick={() => { setPopUp(false) }}>
-                                    <p className={styles.textButton}>
-                                        Cancelar
-                                    </p>
-                                </div>
+                            <div className={styles.container3}>
+                                <div className={styles.line} />
+                                <p style={{ fontSize: '2vh', paddingLeft: '1vw', paddingRight: '1vw', }}>ou</p>
+                                <div className={styles.line} />
+                            </div>
+                            <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }} onClick={() => { setPopUp(false) }}>
+                                <p className={styles.textButton}>
+                                    Cancelar
+                                </p>
                             </div>
                         </div>
+                    </div>
                     :
                     null
             }
