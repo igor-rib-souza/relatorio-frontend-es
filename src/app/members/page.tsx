@@ -32,6 +32,7 @@ const Members = () => {
         'email': 'email'
     });
     const [showDetails, setShowDetails] = useState(false);
+    const [modalDelete, setModalDelete] = useState(false)
 
 
     async function createMember() {
@@ -126,6 +127,25 @@ const Members = () => {
 
     return (
         <div className={styles.container}>
+            {
+                modalDelete ?
+                    <div className={styles.centered}>
+                        <div className={styles.modalDelete} >
+                            <p className={styles.deleteText}>Tem certeza que deseja deletar o membro?</p>
+                            <div className={styles.inputContainer} color='#616269'>
+                                <User2 color='#121C54' />
+                                <p className={styles.input}>{selectedUser.name}</p>
+                            </div>
+                            <div className={styles.button} style={{ backgroundColor: '#2A73C5', }} onClick={() => {setModalDelete(false),deleteUser()}}>
+                                <p className={styles.textButton}>
+                                    Excluir Usuário
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    null
+            }
             {
                 showDetails ?
                     <div className={styles.centered}>
@@ -247,7 +267,7 @@ const Members = () => {
                                     </p>
                                 </div>
 
-                                <div className={styles.button} style={{ backgroundColor: '#2A73C5', }} onClick={() => deleteUser()}>
+                                <div className={styles.button} style={{ backgroundColor: '#2A73C5', }} onClick={() => setModalDelete(!modalDelete)}>
                                     <p className={styles.textButton}>
                                         Excluir Usuário
                                     </p>
@@ -257,7 +277,7 @@ const Members = () => {
                             null
                     }
 
-                    <div onClick={() => {selectedUser._id != '' ? setShowDetails(!showDetails) : null}} className={styles.button} style={{ backgroundColor: '#162369', boxShadow: '0px 4px 0px #111A4F' }}>
+                    <div onClick={() => { selectedUser._id != '' ? setShowDetails(!showDetails) : null }} className={styles.button} style={{ backgroundColor: '#162369', boxShadow: '0px 4px 0px #111A4F' }}>
                         <p className={styles.textButton}>
                             Exibir Detalhes
                         </p>
