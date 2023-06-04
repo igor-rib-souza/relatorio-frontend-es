@@ -3,13 +3,13 @@ import Header from '@/components/header/header';
 import styles from './page.module.css';
 import Menu from '@/components/menu/menu';
 import api from '@/services/api';
-import { useEffect, useState } from 'react';
+import { Key, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { Tag } from 'lucide-react';
 
 const Tags = () => {
 
-    const [tags, setTags] = useState('')
+    const [tags, setTags] = useState([])
     const cookies: any = Cookies.get("user");
     const user = JSON.parse(cookies);
     const adm = user.user.type === "adm";
@@ -23,7 +23,7 @@ const Tags = () => {
             }
         }).
             then((response) => {
-                console.log(response.data)
+                setTags(response.data.tags)
             })
             .catch((error) => { console.log(error.response.data) })
     }
@@ -84,6 +84,18 @@ const Tags = () => {
             <Header />
             <div className={styles.container2}>
                 <Menu />
+                <div style={{ overflowY: 'scroll', scrollbarWidth: 'thin', marginBottom: '1vh' }}>
+                    {
+                        tags.map((tag: any, index: Key | null | undefined) => (
+                            <div className={styles.containerMember} key={index} >
+
+                                <div className={styles.containerText}>
+                                    <p className={styles.memberName}>{tag.name}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
                 <div className={styles.containerButtons} >
                     <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => setPopUp(!popUp)}>
                         <p className={styles.textButton} >
@@ -91,16 +103,28 @@ const Tags = () => {
                         </p>
                     </div>
 
-                    <div className={styles.button} style={{ backgroundColor: '#2A73C5', }}>
-                        <p className={styles.textButton}>
-                            Editar Permissões
-                        </p>
-                    </div>
-                    <div className={styles.button} style={{ backgroundColor: '#162369', boxShadow: '0px 4px 0px #111A4F' }}>
-                        <p className={styles.textButton}>
-                            Exibir Detalhes
-                        </p>
-                    </div>
+                    {/*
+                        Escondendo botões devido a falta de funções, mas eles existem na prototipação
+                    */}
+
+                    {
+                        false ?
+                            <div>                    <div className={styles.button} style={{ backgroundColor: '#2A73C5', }}>
+                                <p className={styles.textButton}>
+                                    Editar Permissões
+                                </p>
+                            </div>
+                                <div className={styles.button} style={{ backgroundColor: '#162369', boxShadow: '0px 4px 0px #111A4F' }}>
+                                    <p className={styles.textButton}>
+                                        Exibir Detalhes
+                                    </p>
+                                </div>
+                            </div>
+                            :
+                            null
+
+                    }
+
                 </div>
             </div>
         </div>

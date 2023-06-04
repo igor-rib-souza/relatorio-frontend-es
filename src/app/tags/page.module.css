@@ -161,3 +161,31 @@
     transition: 0.5%;
     opacity: 0.5;
 }
+
+.containerMember {
+    background-color: #EDF5FF;
+    width: 40vw;
+    height: 10vh;
+    margin-top: 2vh;
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerMember:hover {
+    cursor: pointer;
+}
+
+.memberName {
+    font-weight: bold;
+    font-size: 2vh;
+}
+
+.container2 {
+    display: flex;
+    justify-content: space-between;
+    height: 91vh;
+    overflow: hidden;
+
+}
