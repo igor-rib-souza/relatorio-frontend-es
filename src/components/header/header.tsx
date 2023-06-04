@@ -51,9 +51,26 @@ export default function Header() {
 
   async function editUser() {
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('userFunction', userFunction);
-    formData.append('file', selectedImage); // Incluído o valor de selectedImage no FormData
+    {
+      name != '' ?
+      formData.append('name', name)
+      :
+      null
+    }
+
+    {
+      userFunction != '' ?
+      formData.append('userFunction', userFunction)
+      :
+      null
+    }
+    {
+      selectedImage != '' ?
+      formData.append('file', selectedImage)
+            :
+      null
+    }
+     // Incluído o valor de selectedImage no FormData
 
     api.put(`user/${user.user._id}/${user.user._id}`, formData, {
       headers: {
