@@ -5,6 +5,7 @@ import Menu from '@/components/menu/menu';
 import api from '@/services/api';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import { Tag } from 'lucide-react';
 
 const Tags = () => {
 
@@ -32,12 +33,40 @@ const Tags = () => {
 
     return (
         <div className={styles.container}>
+            {
+                popUp ?
+                    <div className={styles.centered}>
+                        <div className={styles.modal}>
+                            <div className={styles.inputContainer} color='#616269'>
+                                <Tag color='#121C54' />
+                                <input className={styles.input} placeholder='Nome da tag' />
+                            </div>
+                            <div className={styles.button2} onClick={() => { }}>
+                                <p className={styles.textButton}>
+                                    Criar Tag
+                                </p>
+                            </div>
+                                <div className={styles.container3}>
+                                    <div className={styles.line} />
+                                    <p style={{ fontSize: '2vh', paddingLeft: '1vw', paddingRight: '1vw',  }}>ou</p>
+                                    <div className={styles.line} />
+                                </div>
+                                <div className={styles.button2} style={{ backgroundColor: "#162369", boxShadow: "0px 4px 0px #111A4F" }} onClick={() => { setPopUp(false) }}>
+                                    <p className={styles.textButton}>
+                                        Cancelar
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    :
+                    null
+            }
             <Header />
             <div className={styles.container2}>
                 <Menu />
                 <div className={styles.containerButtons} >
-                    <div className={styles.button} style={{ backgroundColor: '#2A73C5' }}>
-                        <p className={styles.textButton} onClick={() => setPopUp(true)}>
+                    <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => setPopUp(!popUp)}>
+                        <p className={styles.textButton} >
                             Criar Nova Tag
                         </p>
                     </div>

@@ -136,7 +136,7 @@ const Members = () => {
                                 <User2 color='#121C54' />
                                 <p className={styles.input}>{selectedUser.name}</p>
                             </div>
-                            <div className={styles.button} style={{ backgroundColor: '#2A73C5', }} onClick={() => {setModalDelete(false),deleteUser()}}>
+                            <div className={styles.button} style={{ backgroundColor: '#2A73C5', }} onClick={() => { setModalDelete(false), deleteUser() }}>
                                 <p className={styles.textButton}>
                                     Excluir Usuário
                                 </p>
