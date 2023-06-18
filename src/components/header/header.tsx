@@ -8,7 +8,9 @@ import { Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
-import { Settings, User2, FileX2, FileCheck2, FileClock } from "lucide-react";
+import { Settings, User2, FileX2, FileCheck2, FileClock, ArrowRight } from "lucide-react";
+import DatePicker from "react-datepicker";
+import { addHours, format } from 'date-fns';
 import api from "@/services/api";
 
 export default function Header() {
@@ -22,6 +24,10 @@ export default function Header() {
   const [selectedImage, setSelectedImage] = useState("");
   const [analyticsModal, setAnalyticsModal] = useState(false);
   const [reportModal, setReportModal] = useState(false);
+  const [showTime, setShowTime] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [auxDate, setAuxDate] = useState(new Date());
 
   let menu = document.getElementById("menu");
 
@@ -127,7 +133,17 @@ export default function Header() {
   const toggleReportModal = () => {
     setReportModal(!reportModal);
   };  
-  
+
+  const onChange = (dates: any) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    if (end != null) {
+      setAuxDate(end);
+      setShowTime(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       {modal ? (
@@ -138,7 +154,7 @@ export default function Header() {
                 src={""}
                 alt={""}
                 className={styles.profilePic}
-              />
+              /> 
               <input
                 name="foto"
                 className={styles.inputFile}
@@ -181,8 +197,28 @@ export default function Header() {
 
       {analyticsModal ? (
         <div className={styles.centered}>
+          <div className={styles.datePicker}>
+            {showTime ?
+              <DatePicker
+              selected={startDate}
+              onChange={onChange}
+              startDate={startDate}
+              endDate={endDate}
+              selectsRange
+              inline
+              />
+              :
+              <></>
+            }
+          </div>
           <div className={styles.modal}>
-          <h1>Relatórios</h1>
+          <h1 className={styles.h1}>Escolha a semana</h1>
+          <div className={styles.containerHeaderData} onClick={() => setShowTime(!showTime)}>
+            <p className={styles.date}>{format(startDate, "dd/MM/yyyy")}</p>
+            <ArrowRight className={styles.arrow} size={20} />
+            <p className={styles.date}>{endDate != null ? format(endDate, "dd/MM/yyyy") : format(auxDate, "dd/MM/yyyy")}</p>
+          </div>
+          <h1 className={styles.h1}>Relatórios</h1>
             <div className={styles.inputContainer}>
               <FileX2 color='#121C54' />
               <input
@@ -219,7 +255,7 @@ export default function Header() {
       {reportModal ? (
         <div className={styles.centered}>
           <div className={styles.modal}>
-            <h1>Sobre Meus Relatórios</h1>
+            <h1 className={styles.h1}>Sobre meus relatórios</h1>
             <div className={styles.inputContainer}>
               <FileX2 color='#121C54' />
               <input
