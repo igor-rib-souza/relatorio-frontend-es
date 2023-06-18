@@ -21,7 +21,7 @@ export default function Header() {
   const [name, setName] = useState('');
   const [selectedImage, setSelectedImage] = useState("");
   const [analyticsModal, setAnalyticsModal] = useState(false);
-
+  const [reportModal, setReportModal] = useState(false);
 
   let menu = document.getElementById("menu");
 
@@ -121,9 +121,13 @@ export default function Header() {
   };
 
   const toggleAnalyticsModal = () => {
-  setAnalyticsModal(!analyticsModal);
-};
-
+    setAnalyticsModal(!analyticsModal);
+  };
+  
+  const toggleReportModal = () => {
+    setReportModal(!reportModal);
+  };  
+  
   return (
     <div className={styles.container}>
       {modal ? (
@@ -174,7 +178,7 @@ export default function Header() {
           </div>
         </div>
       ) : null}
-      
+
       {analyticsModal ? (
         <div className={styles.centered}>
           <div className={styles.modal}>
@@ -212,6 +216,43 @@ export default function Header() {
        </div>
       ) : null}
 
+      {reportModal ? (
+        <div className={styles.centered}>
+          <div className={styles.modal}>
+            <h1>Sobre Meus Relatórios</h1>
+            <div className={styles.inputContainer}>
+              <FileX2 color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Totais não enviados'
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <FileCheck2 color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Totais enviados'
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <FileClock color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Enviados com Atraso'
+              />
+            </div>
+            <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => { setReportModal(false) }}>
+              <p className={styles.textButton}>
+                Fechar
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       <div className={styles.headerContainer}>
         <Image
           src={windowSize.width > 700 ? Logo : LogoMinimalista}
@@ -236,7 +277,7 @@ export default function Header() {
           <div className={styles.subMenu}>
             <p onClick={() => setModal(!modal)}>Editar Perfil</p>
             <p onClick={toggleAnalyticsModal}>Exibir analytics de Relatórios</p>
-            <p>Meus Relatórios</p>
+            <p onClick={toggleReportModal}>Meus Relatórios</p>
             <hr />
             <p onClick={() => logout()}>Sair</p>
           </div>
