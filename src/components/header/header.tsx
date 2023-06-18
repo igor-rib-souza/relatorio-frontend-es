@@ -8,7 +8,7 @@ import { Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
-import { Settings, User2 } from "lucide-react";
+import { Settings, User2, FileX2, FileCheck2, FileClock } from "lucide-react";
 import api from "@/services/api";
 
 export default function Header() {
@@ -178,7 +178,31 @@ export default function Header() {
         <div className={styles.centered}>
           <div className={styles.modal}>
             <h1>Sobre Meus Relatórios</h1>
-            <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => { setModal(false); editUser(); }}>
+            <div className={styles.inputContainer}>
+              <FileX2 color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Totais não enviados'
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <FileCheck2 color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Totais enviados'
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <FileClock color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Enviados com Atraso'
+              />
+            </div>
+            <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => { setReportModal(false) }}>
               <p className={styles.textButton}>
                 Fechar
               </p>
