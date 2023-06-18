@@ -20,6 +20,7 @@ export default function Header() {
   const [userFunction, setUserFunction] = useState('');
   const [name, setName] = useState('');
   const [selectedImage, setSelectedImage] = useState("");
+  const [reportModal, setReportModal] = useState(false);
 
   let menu = document.getElementById("menu");
 
@@ -118,6 +119,10 @@ export default function Header() {
     console.log(file);
   };
 
+  const toggleReportModal = () => {
+    setReportModal(!reportModal);
+  };  
+
   return (
     <div className={styles.container}>
       {modal ? (
@@ -168,6 +173,20 @@ export default function Header() {
           </div>
         </div>
       ) : null}
+
+      {reportModal ? (
+        <div className={styles.centered}>
+          <div className={styles.modal}>
+            <h1>Sobre Meus Relatórios</h1>
+            <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => { setModal(false); editUser(); }}>
+              <p className={styles.textButton}>
+                Fechar
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       <div className={styles.headerContainer}>
         <Image
           src={windowSize.width > 700 ? Logo : LogoMinimalista}
@@ -192,7 +211,7 @@ export default function Header() {
           <div className={styles.subMenu}>
             <p onClick={() => setModal(!modal)}>Editar Perfil</p>
             <p>Exibir analytics de Relatórios</p>
-            <p>Meus Relatórios</p>
+            <p onClick={toggleReportModal}>Meus Relatórios</p>
             <hr />
             <p onClick={() => logout()}>Sair</p>
           </div>
