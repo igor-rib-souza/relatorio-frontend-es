@@ -85,9 +85,10 @@
 }
 
 .datePicker{
-    position: relative;
-    z-index: 2;
-    width: 6vw;
+    z-index: 1;
+    position: absolute;
+    bottom: 10vh;
+    right: 8%;
 }
 
 .centered {

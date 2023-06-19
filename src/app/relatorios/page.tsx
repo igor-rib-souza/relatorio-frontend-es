@@ -12,6 +12,7 @@ import DatePicker from "react-datepicker";
 import { addHours, format } from "date-fns";
 
 const Relatorios = () => {
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [text, setText] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
@@ -107,7 +108,7 @@ const Relatorios = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.container2}>
-        <div className={`${styles.datePicker} ${styles.centered}`}>
+        <div className={styles.datePicker}>
           {showTime && (
             <DatePicker selected={startDate} onChange={(date: any) => setStartDate(date)} showTimeSelect inline />
           )}
