@@ -32,6 +32,8 @@
     border: 1px solid #D3D3D3;
     border-radius: 64px;
     margin-left: 7%;
+    margin-right: 7%;
+    padding: 1%;
     justify-content: space-between;
     align-items: center;
 }
@@ -64,7 +66,7 @@
     width: 6vh;
     height: 6vh;
     border-radius: 100%;
-    margin-left: 10%;
+    margin-right: 3%;
 }
 
 .profilePic:hover{
