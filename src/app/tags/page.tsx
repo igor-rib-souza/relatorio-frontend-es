@@ -16,7 +16,7 @@ const Tags = () => {
     const [popUp, setPopUp] = useState(false);
     const [tagName, setTagName] = useState('');
 
-    // Check if window object is defined before accessing cookies
+
     if (typeof window !== 'undefined') {
         const cookies: any = Cookies.get("user");
         if (cookies) {
