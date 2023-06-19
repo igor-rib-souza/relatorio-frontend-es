@@ -27,7 +27,7 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
       onSubmit(code, password, passwordConfirmation);
     } catch (error) {
       console.error('Erro ao alterar senha:', error);
-      setError('Erro ao alterar senha. Por favor, tente novamente.');
+      setError('Erro ao alterar senha. Por favor, tente novamente!');
     }
   };
 
