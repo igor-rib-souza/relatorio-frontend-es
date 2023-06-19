@@ -8,7 +8,9 @@ import { Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
-import { Settings, User2 } from "lucide-react";
+import { Settings, User2, FileX2, FileCheck2, FileClock, ArrowRight } from "lucide-react";
+import DatePicker from "react-datepicker";
+import { addHours, format } from 'date-fns';
 import api from "@/services/api";
 
 export default function Header() {
@@ -20,6 +22,12 @@ export default function Header() {
   const [userFunction, setUserFunction] = useState('');
   const [name, setName] = useState('');
   const [selectedImage, setSelectedImage] = useState("");
+  const [analyticsModal, setAnalyticsModal] = useState(false);
+  const [reportModal, setReportModal] = useState(false);
+  const [showTime, setShowTime] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [auxDate, setAuxDate] = useState(new Date());
 
   let menu = document.getElementById("menu");
 
@@ -118,6 +126,24 @@ export default function Header() {
     console.log(file);
   };
 
+  const toggleAnalyticsModal = () => {
+    setAnalyticsModal(!analyticsModal);
+  };
+  
+  const toggleReportModal = () => {
+    setReportModal(!reportModal);
+  };  
+
+  const onChange = (dates: any) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    if (end != null) {
+      setAuxDate(end);
+      setShowTime(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       {modal ? (
@@ -128,7 +154,7 @@ export default function Header() {
                 src={""}
                 alt={""}
                 className={styles.profilePic}
-              />
+              /> 
               <input
                 name="foto"
                 className={styles.inputFile}
@@ -168,6 +194,101 @@ export default function Header() {
           </div>
         </div>
       ) : null}
+
+      {analyticsModal ? (
+        <div className={styles.centered}>
+          <div className={styles.datePicker}>
+            {showTime ?
+              <DatePicker
+              selected={startDate}
+              onChange={onChange}
+              startDate={startDate}
+              endDate={endDate}
+              selectsRange
+              inline
+              />
+              :
+              <></>
+            }
+          </div>
+          <div className={styles.modal}>
+          <h1 className={styles.h1}>Escolha a semana</h1>
+          <div className={styles.containerHeaderData} onClick={() => setShowTime(!showTime)}>
+            <p className={styles.date}>{format(startDate, "dd/MM/yyyy")}</p>
+            <ArrowRight className={styles.arrow} size={20} />
+            <p className={styles.date}>{endDate != null ? format(endDate, "dd/MM/yyyy") : format(auxDate, "dd/MM/yyyy")}</p>
+          </div>
+          <h1 className={styles.h1}>Relatórios</h1>
+            <div className={styles.inputContainer}>
+              <FileX2 color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Totais não enviados'
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <FileCheck2 color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Totais enviados'
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <FileClock color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Enviados com Atraso'
+              />
+            </div>
+            <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => { setAnalyticsModal(false) }}>
+              <p className={styles.textButton}>
+                Fechar
+              </p>
+            </div>
+         </div>
+       </div>
+      ) : null}
+
+      {reportModal ? (
+        <div className={styles.centered}>
+          <div className={styles.modal}>
+            <h1 className={styles.h1}>Sobre meus relatórios</h1>
+            <div className={styles.inputContainer}>
+              <FileX2 color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Totais não enviados'
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <FileCheck2 color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Totais enviados'
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <FileClock color='#121C54' />
+              <input
+                disabled={true}
+                className={styles.input}
+                placeholder='Enviados com Atraso'
+              />
+            </div>
+            <div className={styles.button} style={{ backgroundColor: '#2A73C5' }} onClick={() => { setReportModal(false) }}>
+              <p className={styles.textButton}>
+                Fechar
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       <div className={styles.headerContainer}>
         <Image
           src={windowSize.width > 700 ? Logo : LogoMinimalista}
@@ -191,8 +312,8 @@ export default function Header() {
         <div className={styles.subMenuWrap} id="menu">
           <div className={styles.subMenu}>
             <p onClick={() => setModal(!modal)}>Editar Perfil</p>
-            <p>Exibir analytics de Relatórios</p>
-            <p>Meus Relatórios</p>
+            <p onClick={toggleAnalyticsModal}>Exibir analytics de Relatórios</p>
+            <p onClick={toggleReportModal}>Meus Relatórios</p>
             <hr />
             <p onClick={() => logout()}>Sair</p>
           </div>
