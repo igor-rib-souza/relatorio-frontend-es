@@ -1,7 +1,6 @@
 "use client"
-import Header from '@/components/header/header';
+import dynamic from 'next/dynamic';
 import styles from './page.module.css';
-import Menu from '@/components/menu/menu';
 import api from '@/services/api';
 import { Key, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
@@ -9,28 +8,46 @@ import { Tag } from 'lucide-react';
 
 const Tags = () => {
 
-    const [tags, setTags] = useState([])
-    const cookies: any = Cookies.get("user");
-    const user = JSON.parse(cookies);
-    const adm = user.user.type === "adm";
-    const [popUp, setPopUp] = useState(false)
+    const Header = dynamic(() => import('@/components/header/header'), { ssr: false });
+    const Menu = dynamic(() => import('@/components/menu/menu'), { ssr: false });
+
+    const [tags, setTags] = useState([]);
+    const [user, setUser] = useState(null);
+    const [popUp, setPopUp] = useState(false);
     const [tagName, setTagName] = useState('');
 
-    async function getTags() {
-        await api.get(`tag/all`, {
-            headers: {
-                'Authorization': `Bearer ${user.token}`,
+    // Check if window object is defined before accessing cookies
+    if (typeof window !== 'undefined') {
+        const cookies: any = Cookies.get("user");
+        if (cookies) {
+            try {
+                const parsedUser = JSON.parse(cookies);
+                setUser(parsedUser);
+            } catch (error) {
+                console.error("Error parsing user cookie:", error);
             }
-        }).
-            then((response) => {
+        }
+    }
+
+    async function getTags() {
+        if (user) {
+            await api.get(`tag/all`, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`,
+                }
+            })
+            .then((response) => {
                 setTags(response.data.tags)
             })
             .catch((error) => { console.log(error.response.data) })
+        }
     }
 
     useEffect(() => {
-        getTags()
-    }, [tags])
+        if (user) {
+            getTags()
+        }
+    }, [user, tags]);
 
     const handleTagNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
@@ -38,17 +55,19 @@ const Tags = () => {
     }
 
     async function createTag() {
-        api.post(`tag/${user.user._id}`,
-            {
-                'name': tagName,
-                'color': ''
-            },
-            {
-                headers: {
-                    'Authorization': `Bearer ${user.token}`,
-                }
-            }).then(() => { setTagName('') })
-            .catch((error) => console.log(error))
+        if (user) {
+            api.post(`tag/${user.user._id}`,
+                {
+                    'name': tagName,
+                    'color': ''
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`,
+                    }
+                }).then(() => { setTagName('') })
+                .catch((error) => console.log(error))
+        }
     }
 
     return (
