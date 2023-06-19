@@ -8,6 +8,7 @@ interface ForgotPasswordProps {
   onSubmit: (code: string, password: string, passwordConfirmation: string) => void;
 }
 
+
 export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
@@ -23,13 +24,21 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
     }
 
     try {
-      const response = await api.post('/change-password', { code, password, passwordConfirmation });
+      const email = getEmailFromURL();
+      const response = await api.post('/PasswordRecovery/'+ email, { code, password, passwordConfirmation });
       onSubmit(code, password, passwordConfirmation);
     } catch (error) {
       console.error('Erro ao alterar senha:', error);
       setError('Erro ao alterar senha. Por favor, tente novamente!');
     }
   };
+
+  function getEmailFromURL() {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const email = params.get('email');
+    return email;
+  }
 
   const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCode(event.target.value);
