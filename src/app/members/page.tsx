@@ -1,7 +1,7 @@
 "use client"
-import Header from '@/components/header/header';
+import dynamic from 'next/dynamic'
 import styles from './page.module.css';
-import Menu from '@/components/menu/menu';
+
 import api from '@/services/api';
 import { Key, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
@@ -12,11 +12,29 @@ import { Settings, User2, Mail, Lock, User, Ban } from "lucide-react";
 
 const Members = () => {
 
+    const Header = dynamic(() => import('../../components/header/header'), { ssr: false });
+    const Menu = dynamic(() => import('../../components/menu/menu'), { ssr: false });
+
     const [members, setMembers] = useState([])
-    const cookies: any = Cookies.get("user");
-    const user = JSON.parse(cookies);
-    const adm = user.user.type === "adm";
+    const [user, setUser] = useState(null);
+
+    // Check if window object is defined before accessing cookies
+    if (typeof window !== 'undefined') {
+      const cookies: any = Cookies.get("user");
+      if (cookies) {
+        try {
+          const parsedUser = JSON.parse(cookies);
+          setUser(parsedUser);
+        } catch (error) {
+          console.error("Error parsing user cookie:", error);
+        }
+      }
+    }
+  
+    const adm = user?.user?.type === "adm";
     const [popUp, setPopUp] = useState(false);
+
+    
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -68,8 +86,10 @@ const Members = () => {
     }
 
     useEffect(() => {
-        getMembers()
-    }, [members])
+        if (user) {
+          getMembers();
+        }
+      }, [user, members]);
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
