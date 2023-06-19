@@ -164,9 +164,11 @@
 }
 
 .datePicker{
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    z-index: 1000;
     width: 6vw;
+    top: 16%;
+    left: 18%;
 }
 
 .centered {

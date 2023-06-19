@@ -116,7 +116,7 @@ export default function Relatorios(relatorios: any) {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.datePicker} ${styles.centered}`}>
+      <div className={styles.datePicker}>
         {showTime ?
           <DatePicker
             selected={startDate}
