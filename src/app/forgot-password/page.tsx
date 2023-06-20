@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 import { Ban, Hash, Lock } from 'lucide-react';
 import api from '../../services/api';
 import styles from './page.module.css';
+import { useRouter } from "next/navigation";
 
 interface ForgotPasswordProps {
-  onSubmit: (code: string, password: string, passwordConfirmation: string) => void;
+  onSubmit?: (code: string, password: string, passwordConfirmation: string) => void;
 }
 
 
 export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
+  const router = useRouter();
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -25,12 +27,17 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
 
     try {
       const email = getEmailFromURL();
-      const response = await api.post('/PasswordRecovery/'+ email, { code, password, passwordConfirmation });
-      onSubmit(code, password, passwordConfirmation);
+
+      const response = await api.put('/PasswordRecovery/'+ email, { code, password, passwordConfirmation });
+      if (typeof onSubmit === 'function') {
+        onSubmit(code, password, passwordConfirmation);
+      }
+      router.push('/login');
     } catch (error) {
       console.error('Erro ao alterar senha:', error);
       setError('Erro ao alterar senha. Por favor, tente novamente!');
     }
+    
   };
 
   function getEmailFromURL() {

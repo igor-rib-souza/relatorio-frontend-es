@@ -16,6 +16,7 @@ const Menu = dynamic(() => import('../../components/menu/menu'), { ssr: false })
 const Relatorio = dynamic(() => import('../../components/relatorios/relatorios'), { ssr: false });
 
 const Relatorios = () => {
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [text, setText] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
@@ -141,7 +142,7 @@ const Relatorios = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.container2}>
-        <div className={`${styles.datePicker} ${styles.centered}`}>
+        <div className={styles.datePicker}>
           {showTime && (
             <DatePicker selected={startDate} onChange={(date: any) => setStartDate(date)} showTimeSelect inline />
           )}
