@@ -9,8 +9,8 @@ import Ausente from '../../../public/assets/foto-usuario-ausente.jpg';
 import Image from 'next/image';
 import { Settings, User2, Mail, Lock, User, Ban } from "lucide-react";
 
-const Header = dynamic(() => import('../../components/header/header'), { ssr: true });
-const Menu = dynamic(() => import('../../components/menu/menu'), { ssr: true });
+const Header = dynamic(() => import('../../components/header/header'), { ssr: false });
+const Menu = dynamic(() => import('../../components/menu/menu'), { ssr: false });
 
 const Members = () => {
 
