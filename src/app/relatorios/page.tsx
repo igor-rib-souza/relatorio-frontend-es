@@ -1,15 +1,19 @@
 "use client"
 import React, { useState, useEffect, useCallback } from "react";
-import Header from "../../components/header/header";
-import Menu from "../../components/menu/menu";
+import dynamic from 'next/dynamic'
+
 import styles from "./page.module.css";
-import Relatorio from "../../components/relatorios/relatorios";
+
 import api from "../../services/api";
 import Cookies from "js-cookie";
 import { Calendar, Send } from "lucide-react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { addHours, format } from "date-fns";
+
+const Header = dynamic(() => import('../../components/header/header'), { ssr: false });
+const Menu = dynamic(() => import('../../components/menu/menu'), { ssr: false });
+const Relatorio = dynamic(() => import('../../components/relatorios/relatorios'), { ssr: false });
 
 const Relatorios = () => {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
@@ -34,15 +38,37 @@ const Relatorios = () => {
     ],
   });
 
-  const cookies: any = Cookies.get("user");
-  const user = JSON.parse(cookies);
-  const adm = user.user.type === "adm";
+
+
+  let adm = false;
+  let user;
+  
+  if (typeof window !== 'undefined') {
+    const cookies: any = Cookies.get("user");
+    if (cookies) {
+      try {
+        user = JSON.parse(cookies);
+        if (user && user.user) {
+          adm = user.user.type === "adm";
+        }
+      } catch (error) {
+        console.error("Error parsing user cookie:", error);
+      }
+    }
+  }
+  
+  
+  
+  
 
   const handleChange = useCallback((event: { target: { value: React.SetStateAction<string>; }; }) => {
     setText(event.target.value);
   }, []);
 
   const getReports = useCallback(async () => {
+    if (!user || !user.user || !user.token) {
+      return;
+    }
     try {
       const response = await api.get(`report/${user.user._id}/01010000/12129999`, {
         headers: {
@@ -55,9 +81,12 @@ const Relatorios = () => {
     } catch (error: any) {
       console.log(error.data);
     }
-  }, [user.user._id, user.token]);
+  }, [user && user.user && user.user._id, user && user.token]);
 
   const getReportsAdm = useCallback(async () => {
+    if (!user || !user.user || !user.token) {
+      return;
+    }
     try {
       const response = await api.get(`report/all/${user.user._id}/01010000/12129999`, {
         headers: {
@@ -70,9 +99,13 @@ const Relatorios = () => {
     } catch (error: any) {
       console.log(error.data);
     }
-  }, [user.user._id, user.token]);
+  }, [user && user.user && user.user._id, user && user.token]);
+
 
   const sendReport = useCallback(async () => {
+    if (!user || !user.user || !user.token) {
+      return;
+    }
     try {
       await api.post(
         `/report/${user.user._id}`,
@@ -94,7 +127,7 @@ const Relatorios = () => {
     } catch (error: any) {
       console.log(error.response.data);
     }
-  }, [startDate, text, user.user._id, user.token]);
+  }, [startDate, text, user && user.user && user.user._id, user && user.token]);
 
   useEffect(() => {
     if (adm) {
@@ -103,6 +136,7 @@ const Relatorios = () => {
       getReportsAdm();
     }
   }, [adm, getReports, getReportsAdm]);
+  
 
   return (
     <div className={styles.container}>

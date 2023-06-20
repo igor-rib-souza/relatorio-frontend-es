@@ -27,6 +27,7 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
 
     try {
       const email = getEmailFromURL();
+
       const response = await api.put('/PasswordRecovery/'+ email, { code, password, passwordConfirmation });
       if (typeof onSubmit === 'function') {
         onSubmit(code, password, passwordConfirmation);
@@ -34,7 +35,7 @@ export default function ForgotPassword({ onSubmit }: ForgotPasswordProps) {
       router.push('/login');
     } catch (error) {
       console.error('Erro ao alterar senha:', error);
-      setError('Erro ao alterar senha. Por favor, tente novamente.');
+      setError('Erro ao alterar senha. Por favor, tente novamente!');
     }
     
   };

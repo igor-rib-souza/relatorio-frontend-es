@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import { ArrowRight, Clock } from "lucide-react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import { addHours, format } from 'date-fns';
+import { addHours, format, subDays } from 'date-fns';
 import api from "@/services/api";
 import Cookies from "js-cookie";
 import { start } from "repl";
@@ -16,7 +16,7 @@ export default function Relatorios(relatorios: any) {
   const adm = user.user.type == "adm";
   const [data, setData] = useState(relatorios["relatorios"]["reports"]);
   const [showTime, setShowTime] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(subDays(new Date(), 7));
   const [endDate, setEndDate] = useState(new Date());
   const [auxDate, setAuxDate] = useState(new Date());
   const [close, setClose] = useState(false);
