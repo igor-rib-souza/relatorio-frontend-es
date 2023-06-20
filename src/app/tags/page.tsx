@@ -6,17 +6,18 @@ import { Key, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { Tag } from 'lucide-react';
 
+const Header = dynamic(() => import('@/components/header/header'), { ssr: false });
+const Menu = dynamic(() => import('@/components/menu/menu'), { ssr: false });
+
 const Tags = () => {
 
-    const Header = dynamic(() => import('@/components/header/header'), { ssr: false });
-    const Menu = dynamic(() => import('@/components/menu/menu'), { ssr: false });
 
     const [tags, setTags] = useState([]);
     const [user, setUser] = useState(null);
     const [popUp, setPopUp] = useState(false);
     const [tagName, setTagName] = useState('');
 
-
+useEffect(() => {
     if (typeof window !== 'undefined') {
         const cookies: any = Cookies.get("user");
         if (cookies) {
@@ -28,6 +29,8 @@ const Tags = () => {
             }
         }
     }
+},[])
+   
 
     async function getTags() {
         if (user) {
