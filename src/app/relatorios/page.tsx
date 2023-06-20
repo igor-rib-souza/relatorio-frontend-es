@@ -11,6 +11,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { addHours, format } from "date-fns";
 
+const Header = dynamic(() => import('../../components/header/header'), { ssr: false });
+const Menu = dynamic(() => import('../../components/menu/menu'), { ssr: false });
+const Relatorio = dynamic(() => import('../../components/relatorios/relatorios'), { ssr: false });
+
 const Relatorios = () => {
   const [text, setText] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -33,9 +37,7 @@ const Relatorios = () => {
     ],
   });
 
-  const Header = dynamic(() => import('../../components/header/header'), { ssr: false });
-  const Menu = dynamic(() => import('../../components/menu/menu'), { ssr: false });
-  const Relatorio = dynamic(() => import('../../components/relatorios/relatorios'), { ssr: false });
+
 
   let adm = false;
   let user;

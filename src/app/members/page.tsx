@@ -9,27 +9,31 @@ import Ausente from '../../../public/assets/foto-usuario-ausente.jpg';
 import Image from 'next/image';
 import { Settings, User2, Mail, Lock, User, Ban } from "lucide-react";
 
+const Header = dynamic(() => import('../../components/header/header'), { ssr: true });
+const Menu = dynamic(() => import('../../components/menu/menu'), { ssr: true });
 
 const Members = () => {
 
-    const Header = dynamic(() => import('../../components/header/header'), { ssr: false });
-    const Menu = dynamic(() => import('../../components/menu/menu'), { ssr: false });
+
 
     const [members, setMembers] = useState([])
     const [user, setUser] = useState(null);
 
     // Check if window object is defined before accessing cookies
-    if (typeof window !== 'undefined') {
-      const cookies: any = Cookies.get("user");
-      if (cookies) {
-        try {
-          const parsedUser = JSON.parse(cookies);
-          setUser(parsedUser);
-        } catch (error) {
-          console.error("Error parsing user cookie:", error);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const cookies: any = Cookies.get("user");
+          if (cookies) {
+            try {
+              const parsedUser = JSON.parse(cookies);
+              setUser(parsedUser);
+            } catch (error) {
+              console.error("Error parsing user cookie:", error);
+            }
+          }
         }
-      }
-    }
+      }, []);
+      
   
     const adm = user?.user?.type === "adm";
     const [popUp, setPopUp] = useState(false);
